@@ -1,12 +1,10 @@
 const express = require('express')
 const router  = express.Router()
 
-//const book_controller = require("../controllers/books.js")
+const model_controller = require("../controllers/controller.js")
 
-router.post("/",)
-router.get("/",)
-router.get("/:id",)
-router.put('/:id',)
-router.delete('/:id',)
+router.get("/tweets/", model_controller.all)
+router.get("/tweets/:id",book_controller.getOne)
+router.get("/cases/:id", model_controller.CasesByDay)
 
 module.exports = router

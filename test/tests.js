@@ -1,6 +1,8 @@
 var assert = require('assert');
-const request = require('request');
 var myurl = 'http://localhost:3000';
+const Book = require('../models/model');
+const request = require('request');
+
 
 
 describe('Testing the Book API', async function(){
