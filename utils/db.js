@@ -7,7 +7,7 @@ async function connectToDB() {
         // Connect the client to the server
         await client.connect();
         // Our db name is going to be my-library
-        let db = client.db('statistics');
+        let db = client.db('project');
         console.log("Connected successfully to mongoDB");  
         return db;
     } catch (err) {
