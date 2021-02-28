@@ -5,8 +5,8 @@ const request = require('request');
 
 
 
-describe('Testing the Book API', async function(){
-    describe('Testing- Simple cases', function(){
+describe('Testing the API', async function(){
+    describe('Testing - Simple cases', function(){
 
         it('Fail 1', function(){
 
@@ -39,7 +39,7 @@ describe('Testing the Book API', async function(){
 
         });
     });
-    describe('Testing the Book API - Complex Cases', function(){
+    describe('Testing the API - Complex Cases', function(){
         it('Success 1', function(){
 
         });
