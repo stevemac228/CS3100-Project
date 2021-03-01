@@ -147,6 +147,15 @@ class stats {
 			});	 
 		});
     };
+	
+    static async casesOverTime(db, id, id2) { //very rough but I based it off the skeleton design
+        var day_get = id;
+        return new Promise(async function (resolve, reject){
+            /**
+             * 
+             */
+        });
+    };
 }
 
 
