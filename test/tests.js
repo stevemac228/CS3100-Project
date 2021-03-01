@@ -1,11 +1,27 @@
 var assert = require('assert');
 var myurl = 'http://localhost:3000';
-const Book = require('../models/model');
+const Model = require('../models/model');
 const request = require('request');
+const mongo = require('../utils/db');
+
+before(async function() {
+	try {
+		db = await mongo.connectToDB();
+	}catch(err){
+		throw err;
+	}
+});
+
+after(async function() {
+    try{
+        mongo.closeDBConnection();
+    }catch(err){
+        throw err;
+    }
+});
 
 
-
-describe('Testing the Book API', async function(){
+describe('Testing the API', async function(){
     describe('Testing- Simple cases', function(){
 
         it('Fail 1', function(){
@@ -24,24 +40,50 @@ describe('Testing the Book API', async function(){
 
         });
         it('Success 1', async function(){
-
+            objs = Model.getTweetCountByTerm(db,'coronavirus');
+            objs.then(function(result){
+                assert.strictEqual(result[0].counts == '5131363', true);
+            })
         });
         it('Success 2', async function(){
-
+            objs = Model.getDay(db,'2020-02-10');
+            objs.then(function(result){
+                assert.strictEqual(result[0].Confirmed == '42633', true);
+            })
         });
         it('Success 3', async function(){
-
+            objs = Model.getDayandCountry(db,'2020-01-22','Angola');
+            objs.then(function(result){
+                assert.strictEqual(result.Confirmed == '0', true);
+            })
         });
         it('Success 4', async function(){
-
+            objs = Model.getCountry(db,'USA');
+            objs.then(function(result){
+                assert.strictEqual(result[0].TotalCases  == '5032179', true);
+            })
         });
         it('Success 5', async function(){
-
+            objs = Model.getTweetsByDay(db,'2020-1-26');
+            objs.then(function(result){
+                assert.strictEqual(result[0].tweet_id  == '2008', true);
+            })
         });
     });
-    describe('Testing the Book API - Complex Cases', function(){
-        it('Success 1', function(){
-
+    describe('Testing the API - Complex Cases', function(){
+        it('Success 1: Compare the amount of tweets on a day to the amount of covid cases.', function(){
+            let date  = '2020-03-21';
+            request.post({
+                headers: {'content-type': 'application/json'},
+                url:     myurl+'/date/:date',
+                body:    JSON.stringify(date)    
+            }, function(error, response, body){
+                //console.log(body);
+                    if (body.length < 2 ) {
+                        assert.fail('There should be a tweet and a covid informatino object.');
+                    }
+                });
+            });
         });
         it('Success 2', function(){
 
@@ -55,8 +97,5 @@ describe('Testing the Book API', async function(){
         it('Success 5', function(){
 
         });
-        it('Success 6', function(){
-
-        });
     });
-});
+;
