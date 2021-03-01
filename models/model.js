@@ -2,55 +2,25 @@
 1. For our more complex functions such as "getCaseByDay" we might want to consider having case, death, recovery or so on be a varaible in it
 	and just have the function be a "getByDay" to reduce the amount of coding overall.
 2. I didn't know if anybody had plans so I didn't want to mess around with the skeleton too much until I get the okay.
-3. Consider ways to minimize connecting to the collection.
 4. I don't understand what "var id_get = id;" does and why id is a variable in the method besides.
 */
-async function _get_terms_collection (db){
+const client = require("../utils/db.js");
+const { DB } = require("mongodb");
+
+async function getCollection (string collectionName){ //terms, c19DayWise, c19Worldometer, c19FullGrouped, fullClean
     try{
-		return await db.collection('terms');
+	    	let db = await client.getDb();
+		return await db.collection(collectionName);
 	}catch(err){
 		throw err;
 	}    
 };
-
-async function _get_DayWise_collection (db){
-    try{
-		return await db.collection('c19DayWise');
-	}catch(err){
-		throw err;
-	}    
-};
-
-async function _get_Worldometer_collection (db){
-    try{
-		return await db.collection('c19Worldometer');
-	}catch(err){
-		throw err;
-	}    
-};
-
-async function _get_Fullgrouped_collection (db){
-    try{
-		return await db.collection('c19FullGrouped');
-	}catch(err){
-		throw err;
-	}    
-};
-
-async function _get_TweetCount_collection (db){
-    try{
-		return await db.collection('fullClean');
-	}catch(err){
-		throw err;
-	}    
-};
-
 
 class stats {
-    static async getTweetCountByTerm(db, term) {
+    static async getTweetCountByTerm(term) {
         var term_get = term;
         return new Promise(async function (resolve, reject){
-			let collection = await _get_terms_collection(db);
+			let collection = await getCollection("terms");
 			 collection.find({"term":term_get}).toArray((err, items)=>{
 				if (err) reject(err);
 				if(items.length > 0) {
@@ -63,10 +33,10 @@ class stats {
 		});
     };
 
-    static async getCasesByDay(db, day) {
+    static async getCasesByDay(day) {
         var day_to_get = day;
         return new Promise(async function (resolve, reject){
-			let collection = await _get_DayWise_collection(db);
+			let collection = await getCollection('c19DayWise');
 			 collection.find({"Date":day_to_get}).toArray((err, items)=>{
 				if (err) reject(err);
 				if(items.length > 0) {
@@ -79,10 +49,10 @@ class stats {
 		});
     };
 
-    static async getCountry(db, country) {
+    static async getCountry(country) {
         var country_to_get = country;
         return new Promise(async function (resolve, reject){
-			let collection = await _get_Worldometer_collection(db);
+			let collection = await getCollection('c19Worldometer');
 			 collection.find({"Country/Region":country_to_get}).toArray((err, items)=>{
 				if (err) reject(err);
 				if(items.length > 0) {
@@ -95,11 +65,11 @@ class stats {
 		});
     };
 
-    static async getDayandCountry(db, day, country) {
+    static async getDayandCountry(day, country) {
         var day_to_get = day;
         var country_to_get = country;
         return new Promise(async function (resolve, reject){
-			let collection = await _get_Fullgrouped_collection(db);
+			let collection = await getCollection('c19FullGrouped');
 			 collection.find({"Date":day_to_get}, {"Country/Region":country_to_get}).toArray((err, items)=>{
 				if (err) reject(err);
 				if(items.length > 0) {
@@ -112,10 +82,10 @@ class stats {
 		});
     };
 
-    static async getTweetsByDay(db, day) {
+    static async getTweetsByDay(day) {
         var day_to_get = day;
         return new Promise(async function (resolve, reject){
-			let collection = await _get_TweetCount_collection(db);
+			let collection = await getCollection('fullClean');
 			 collection.find({"date":day_to_get}).toArray((err, items)=>{
 				if (err) reject(err);
 				if(items.length > 0) {
@@ -128,11 +98,11 @@ class stats {
 		});
     };
 
-    static async dayCompare(db, day) {
+    static async dayCompare(day) {
         var day_to_get = day;
         return new Promise(async function (resolve, reject){
-			let collection = await _get_TweetCount_collection(db);
-            let collection2 = await _get_DayWise_collection(db);
+			let collection = await getCollection('fullClean');
+            let collection2 = await _get_collection('c19DayWise');
 			collection.find({"date":day_to_get}).toArray((err, items1)=>{
                 collection2.find({"date":day_to_get}).toArray((err, items2)=>{
                     if (err) reject(err);
@@ -148,7 +118,7 @@ class stats {
 		});
     };
 	
-    static async casesOverTime(db, id, id2) { //very rough but I based it off the skeleton design
+    static async casesOverTime(id, id2) { //very rough but I based it off the skeleton design
         var day_get = id;
         return new Promise(async function (resolve, reject){
             /**
