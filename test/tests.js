@@ -40,31 +40,31 @@ describe('Testing the API', async function(){
 
         });
         it('Success 1', async function(){
-            objs = Model.getTweetCountByTerm(db,'coronavirus');
+            objs = Model.getTweetCountByTerm('coronavirus');
             objs.then(function(result){
                 assert.strictEqual(result[0].counts == '5131363', true);
             })
         });
         it('Success 2', async function(){
-            objs = Model.getDay(db,'2020-02-10');
+            objs = Model.getDay('2020-02-10');
             objs.then(function(result){
                 assert.strictEqual(result[0].Confirmed == '42633', true);
             })
         });
         it('Success 3', async function(){
-            objs = Model.getDayandCountry(db,'2020-01-22','Angola');
+            objs = Model.getDayandCountry('2020-01-22','Angola');
             objs.then(function(result){
                 assert.strictEqual(result.Confirmed == '0', true);
             })
         });
         it('Success 4', async function(){
-            objs = Model.getCountry(db,'USA');
+            objs = Model.getCountry('USA');
             objs.then(function(result){
                 assert.strictEqual(result[0].TotalCases  == '5032179', true);
             })
         });
         it('Success 5', async function(){
-            objs = Model.getTweetsByDay(db,'2020-1-26');
+            objs = Model.getTweetsByDay('2020-1-26');
             objs.then(function(result){
                 assert.strictEqual(result[0].tweet_id  == '2008', true);
             })
