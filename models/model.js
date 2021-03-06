@@ -130,7 +130,7 @@ class stats {
     };
 	
 	/* Returns all cases within a range of time */
-    static async casesOverTime(day1, day2) { //very rough but I based it off the skeleton design
+    static async casesOverTime(day1, day2) { 
         var first_day = day1;
 	var last_day = day2
         return new Promise(async function (resolve, reject){
@@ -141,9 +141,39 @@ class stats {
     };
 	
 	/* Returns all deaths within a range of time */
-    static async deathsOverTime(day1, day2) { //very rough but I based it off the skeleton design
+    static async deathsOverTime(day1, day2) { 
         var first_day = day1;
 	var last_day = day2
+        return new Promise(async function (resolve, reject){
+            /**
+             * code
+             */
+        });
+    };
+	
+	/* Ratio between tweets and cases */
+    static async tweetRatioCases() { 
+        var x;
+        return new Promise(async function (resolve, reject){
+            /**
+             * code
+             */
+        });
+    };
+	
+	/* Ratio between tweets and deaths */
+    static async tweetRatioDeaths() { 
+        var x;
+        return new Promise(async function (resolve, reject){
+            /**
+             * code
+             */
+        });
+    };
+	
+	/* Ratio between tweets and recoveries */
+    static async tweetRatioRecoveries() { 
+        var x;
         return new Promise(async function (resolve, reject){
             /**
              * code
