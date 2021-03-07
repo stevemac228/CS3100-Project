@@ -1,14 +1,9 @@
-/* General notes
-1. For our more complex functions such as "getCaseByDay" we might want to consider having case, death, recovery or so on be a varaible in it
-	and just have the function be a "getByDay" to reduce the amount of coding overall.
-2. I didn't know if anybody had plans so I didn't want to mess around with the skeleton too much until I get the okay.
-4. I don't understand what "var id_get = id;" does and why id is a variable in the method besides.
-*/
 const client = require("../utils/db.js");
 const { DB } = require("mongodb");
 const e = require("express");
 
-async function getCollection (string collectionName){ //terms, c19DayWise, c19Worldometer, c19FullGrouped, fullClean
+/* Resposible for connection to the various collections */
+async function getCollection (collectionName){ //terms, c19DayWise, c19Worldometer, c19FullGrouped, fullClean
     try{
 	    	let db = await client.getDb();
 		return await db.collection(collectionName);
@@ -18,6 +13,7 @@ async function getCollection (string collectionName){ //terms, c19DayWise, c19Wo
 };
 
 class stats {
+	/*Gets the amount of times a valid term was tweeted*/
     static async getTweetCountByTerm(term) {
         var term_get = term;
         return new Promise(async function (resolve, reject){
@@ -34,6 +30,7 @@ class stats {
 		});
     };
 
+	/* Gets number of cases by the day */
     static async getCasesByDay(day) {
         var day_to_get = day;
         return new Promise(async function (resolve, reject){
@@ -49,7 +46,18 @@ class stats {
 			});	 
 		});
     };
-
+	
+	/* gets number of deaths by the day*/
+    static async getDeathsByDay(day) { 
+        var day_to_get = day;
+        return new Promise(async function (resolve, reject){
+            /**
+             * code
+             */
+        });
+    };
+	
+	/**/
     static async getCountry(country) {
         var country_to_get = country;
         return new Promise(async function (resolve, reject){
@@ -66,6 +74,7 @@ class stats {
 		});
     };
 
+	/**/
     static async getDayandCountry(day, country) {
         var day_to_get = day;
         var country_to_get = country;
@@ -83,6 +92,7 @@ class stats {
 		});
     };
 
+	/**/
     static async getTweetsByDay(day) {
         var day_to_get = day;
         return new Promise(async function (resolve, reject){
@@ -99,6 +109,7 @@ class stats {
 		});
     };
 
+	/**/
     static async dayCompare(day) {
         var day_to_get = day;
         return new Promise(async function (resolve, reject){
@@ -119,6 +130,7 @@ class stats {
 		});
     };
 	
+	/* Returns all cases within a range of time */
     static async casesOverTime(id, id2) { //very rough but I based it off the skeleton design
         var day_get = id;
 		var day_end = id2
@@ -139,6 +151,47 @@ class stats {
 				});
    		})
 	};
+	
+	/* Returns all deaths within a range of time */
+    static async deathsOverTime(day1, day2) { 
+        var first_day = day1;
+	var last_day = day2
+        return new Promise(async function (resolve, reject){
+            /**
+             * code
+             */
+        });
+    };
+	
+	/* Ratio between tweets and cases */
+    static async tweetRatioCases() { 
+        var x;
+        return new Promise(async function (resolve, reject){
+            /**
+             * code
+             */
+        });
+    };
+	
+	/* Ratio between tweets and deaths */
+    static async tweetRatioDeaths() { 
+        var x;
+        return new Promise(async function (resolve, reject){
+            /**
+             * code
+             */
+        });
+    };
+	
+	/* Ratio between tweets and recoveries */
+    static async tweetRatioRecoveries() { 
+        var x;
+        return new Promise(async function (resolve, reject){
+            /**
+             * code
+             */
+        });
+    };
 }
 
 
