@@ -133,7 +133,7 @@ class stats {
 	/* Returns all cases within a range of time */
     static async casesOverTime(id, id2) { //very rough but I based it off the skeleton design
         var day_get = id;
-		var day_end = id2
+	var day_end = id2
         return new Promise(async function (resolve, reject){
             let collection = await _get_collection('c19DayWise');
 			collection.find({"date":day_get}).toArray((err, items)=>{
