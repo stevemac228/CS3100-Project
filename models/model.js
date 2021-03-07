@@ -2,7 +2,7 @@ const client = require("../utils/db.js");
 const { DB } = require("mongodb");
 
 /* Resposible for connection to the various collections */
-async function getCollection (string collectionName){ //terms, c19DayWise, c19Worldometer, c19FullGrouped, fullClean
+async function getCollection (collectionName){ //terms, c19DayWise, c19Worldometer, c19FullGrouped, fullClean
     try{
 	    	let db = await client.getDb();
 		return await db.collection(collectionName);
