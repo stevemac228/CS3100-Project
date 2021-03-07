@@ -12,7 +12,24 @@ async function getCollection (collectionName){ //terms, c19DayWise, c19Worldomet
 	}    
 };
 
+/* Determines which field is being looked for on a specific day */
+async function getField (fieldType){ 
+    try{
+	    	if(fieldType == "cases"){
+			let field = "Active";
+		}else if(fieldType == "deaths"){
+			let field = "New deaths";
+		}else if(fieldType == "recoveries"){
+			 let field = "New recovered";
+			 }
+		return await field
+	}catch(err){
+		throw err;
+	}    
+};
+
 class stats {
+	
 	/*Gets the amount of times a valid term was tweeted*/
     static async getTweetCountByTerm(term) {
         var term_get = term;
@@ -30,8 +47,8 @@ class stats {
 		});
     };
 
-	/* Gets number of cases by the day */
-    static async getCasesByDay(day) {
+	/* Gets all info for a day */
+    static async getByDay(day) {
         var day_to_get = day;
         return new Promise(async function (resolve, reject){
 			let collection = await getCollection('c19DayWise');
@@ -47,14 +64,21 @@ class stats {
 		});
     };
 	
-	/* gets number of deaths by the day*/
-    static async getDeathsByDay(day) { 
+	/* Gets specific info for a day */
+    static async getInfoByDay(day, field) {
         var day_to_get = day;
         return new Promise(async function (resolve, reject){
-            /**
-             * code
-             */
-        });
+			let collection = await getCollection('c19DayWise');
+			 collection.find({getField(field):day_to_get}).toArray((err, items)=>{
+				if (err) reject(err);
+				if(items.length > 0) {
+					resolve(items); 
+				}else{
+                    console.log('The day '+ day_to_get +' was not Found');
+					resolve('There are no documentation for '+ day_to_get);
+				}
+			});	 
+		});
     };
 	
 	/**/
@@ -131,7 +155,7 @@ class stats {
     };
 	
 	/* Returns all cases within a range of time */
-    static async casesOverTime(id, id2) { //very rough but I based it off the skeleton design
+    static async casesOverTime(id, id2) {
         var day_get = id;
 	var day_end = id2
         return new Promise(async function (resolve, reject){
@@ -163,8 +187,8 @@ class stats {
         });
     };
 	
-	/* Ratio between tweets and cases */
-    static async tweetRatioCases() { 
+	/* Generates an overall ratio between the amount of tweets and the virus data */
+    static async tweetRatio(field) { 
         var x;
         return new Promise(async function (resolve, reject){
             /**
@@ -173,25 +197,6 @@ class stats {
         });
     };
 	
-	/* Ratio between tweets and deaths */
-    static async tweetRatioDeaths() { 
-        var x;
-        return new Promise(async function (resolve, reject){
-            /**
-             * code
-             */
-        });
-    };
-	
-	/* Ratio between tweets and recoveries */
-    static async tweetRatioRecoveries() { 
-        var x;
-        return new Promise(async function (resolve, reject){
-            /**
-             * code
-             */
-        });
-    };
 }
 
 
