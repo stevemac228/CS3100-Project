@@ -16,11 +16,11 @@ async function getCollection (collectionName){ //terms, c19DayWise, c19Worldomet
 async function getField (fieldType){ 
     try{
 	    	if(fieldType == "cases"){
-			let field = "Active";
+			var field = [1,0,0];
 		}else if(fieldType == "deaths"){
-			let field = "New deaths";
+			var field = [0,1,0];
 		}else if(fieldType == "recoveries"){
-			 let field = "New recovered";
+			 var field = [0,0,1];
 			 }
 		return await field
 	}catch(err){
@@ -69,7 +69,11 @@ class stats {
         var day_to_get = day;
         return new Promise(async function (resolve, reject){
 			let collection = await getCollection('c19DayWise');
-			 collection.find({getField(field):day_to_get}).toArray((err, items)=>{
+			let fieldArray = getField(field);
+			 collection.find({"Date":day_to_get}, 
+					 {"Date":0,"Confirmed":fieldArray[0],"Deaths":fieldArray[1],"Recovered":fieldArray[2],"Active":0,"New cases":0,
+					  "New deaths":0,"New recovered":0,"Deaths / 100 Cases":0,"Recovered / 100 Cases":0,"Deaths / 100 Recovered":0,
+					  "No. of countries":0}).toArray((err, items)=>{
 				if (err) reject(err);
 				if(items.length > 0) {
 					resolve(items); 
