@@ -6,6 +6,7 @@
 */
 const client = require("../utils/db.js");
 const { DB } = require("mongodb");
+const e = require("express");
 
 async function getCollection (string collectionName){ //terms, c19DayWise, c19Worldometer, c19FullGrouped, fullClean
     try{
@@ -42,7 +43,7 @@ class stats {
 				if(items.length > 0) {
 					resolve(items); 
 				}else{
-                    console.log('Term '+ term_get +' was not Found');
+                    console.log('The day '+ day_to_get +' was not Found');
 					resolve('There are no documented cases for '+ day_to_get);
 				}
 			});	 
@@ -120,12 +121,24 @@ class stats {
 	
     static async casesOverTime(id, id2) { //very rough but I based it off the skeleton design
         var day_get = id;
+		var day_end = id2
         return new Promise(async function (resolve, reject){
-            /**
-             * 
-             */
-        });
-    };
+            let collection = await _get_collection('c19DayWise');
+			collection.find({"date":day_get}).toArray((err, items)=>{
+				if (err) reject (err);
+				if (items.length > 0) {
+					while (items.next() != day_end) {
+						console.log(items);
+						items = items.next(); }
+				}else{
+					resolve('There is no comparable data for '+ day_get)
+				}	
+				if (items.next == day_end) {
+					resolve(items.next())
+				}
+				});
+   		})
+	};
 }
 
 
