@@ -14,7 +14,7 @@ async function getCollection (db,collectionName){ //terms, c19DayWise, c19Worldo
 
 class stats {
 	
-	/ *Gets the amount of times a valid term was tweeted */
+	/* Gets the amount of times a valid term was tweeted */
 	static async getCountByTerm(db,term) {
 		var term_get = term;
 		return new Promise(async function (resolve, reject){
@@ -91,7 +91,7 @@ class stats {
 			});
 		};
 				   
-	/*Gets specific info for a country*/
+	/* Gets specific info for a country */
 	static async getCountry(db,country) {
         var country_to_get = country;
         return new Promise(async function (resolve, reject){
@@ -108,7 +108,7 @@ class stats {
 		});
    };
 
-	/*Gets all information for a country on a specific date*/
+	/* Gets all information for a country on a specific date */
 	static async getDayandCountry(db,day, country) {
 		var day_to_get = day;
 		var country_to_get = country;
@@ -172,7 +172,7 @@ class stats {
 		});
 	};
 
-	/**/
+	/* Get all cases for a country within a range of time */
 	static async getCountryCasesOverTime(db, country, day1, day2) {
 		var country_to_get = country;
 		var day_get = day1;
