@@ -14,7 +14,7 @@ async function getCollection (db,collectionName){ //terms, c19DayWise, c19Worldo
 
 class stats {
 	
-	/*Gets the amount of times a valid term was tweeted*/
+	/ *Gets the amount of times a valid term was tweeted */
 	static async getCountByTerm(db,term) {
 		var term_get = term;
 		return new Promise(async function (resolve, reject){
@@ -31,7 +31,7 @@ class stats {
 		});
 	};
 	
-	/* Gets the amount of tweets on input day */
+	/* Gets the amount of tweets on a day */
 	static async getTweetsByDay(db,day) {
 		var day_to_get = day;
 		return new Promise(async function (resolve, reject){
@@ -172,6 +172,7 @@ class stats {
 		});
 	};
 
+	/**/
 	static async getCountryCasesOverTime(db, country, day1, day2) {
 		var country_to_get = country;
 		var day_get = day1;
@@ -195,7 +196,7 @@ class stats {
    		});
 	};
 	
-	    /* Generates an overall ratio between the amount of tweets and the virus data */
+	/* Generates an overall ratio between the amount of tweets and the virus data */
 	static async tweetRatio(db,field) { 
 		var field_to_get = field;
 		return new Promise(async function (resolve, reject){
@@ -205,18 +206,18 @@ class stats {
 				if (err) reject(err);
 				if(items.length > 0) {
 					for(i = 0; i < items.length; i++){
-						totalTweets += parseInt(items[i].Confirmed);
+						totalTweets += parseInt(items[i].tweetAmount);
 					}
 					if (field_to_get == 'Cases'){
-						totalCases = collection2.find().sort({Confirmed:-1}).limit(1);
+						totalCases = collection2.find().sort({Confirmed:-1}).limit(1); //gets max in the collection
 						ratio = totalTweet/totalCases;
 						resolve(ratio);
 					}else if (field_to_get == 'Deaths'){
-						totalDeaths = collection2.find().sort({Confirmed:-1}).limit(1);
+						totalDeaths = collection2.find().sort({Deaths:-1}).limit(1);
 						ratio = totalTweet/totalDeaths;
 						resolve(ratio);
 					}else if (field_to_get == 'Recoveries'){
-						totalRecoveries = collection2.find().sort({Confirmed:-1}).limit(1);
+						totalRecoveries = collection2.find().sort({Recovered:-1}).limit(1);
 						ratio = totalTweet/totalRecoveries;
 						resolve(ratio);
 					}else{
