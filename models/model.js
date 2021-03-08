@@ -164,7 +164,7 @@ class stats {
 	};
 	
 	/* Returns all deaths within a range of time */
-	static async getDeathsOverTime(day1, day2) { 
+	static async getDeathsOverTime(db, day1, day2) { 
 		var day_get = day1;
 		var day_end = day2;
 		var i;
@@ -186,12 +186,12 @@ class stats {
 		})
 	};
 
-	static async getCountryCasesOverTime(country, day1, day2) {
+	static async getCountryCasesOverTime(db, country, day1, day2) {
 		var country_to_get = country;
 		var day_get = day1;
 		var day_end = day2;
 		return new Promise(async function (resolve, reject) {
-			let collection = await _get_collection('c19DayWise');
+			let collection = await _get_collection(db,'c19DayWise');
 			collection.find({"Date":{$gte: day_get, $lte: day_end}}, {"Country/Region":country_to_get}).toArray((err, items)=>{
 				if (err) reject (err);
 				if (items.length > 0) {
