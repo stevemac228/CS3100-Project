@@ -44,7 +44,7 @@ describe('Testing the API', async function(){
                 assert.strictEqual(result, 'There are no documented cases for 10-02-2020');
             })
         });
-        it('Fail 4:', async function(){
+        it('Fail 4: Lookup from invalid country', async function(){
             objs = Model.getCountry(db,'The States');
             objs.then(function(result){
                 assert.strictEqual(result == '5032179','There are no documented cases for The States');
