@@ -141,9 +141,9 @@ class stats {
     };
 	
 	/* Returns all cases within a range of time */
-    static async getCasesOverTime(db,id, id2) {
-        var day_get = id;
-		var day_end = id2;
+    static async getCasesOverTime(db, day1, day2) {
+        var day_get = day1;
+		var day_end = day2;
 		var i;
 		let total = 0;
         return new Promise(async function (resolve, reject){
@@ -151,7 +151,6 @@ class stats {
 			collection.find({"Date":{$gte: day_get, $lte: day_end }}).toArray((err, items)=>{
 				if (err) reject (err);
 				if(items.length > 0) {
-
 					for(i = 0; i < items.length; i++){
 						total += parseInt(items[i].Confirmed);
 					}
@@ -165,15 +164,50 @@ class stats {
 	};
 	
 	/* Returns all deaths within a range of time */
-    static async deathsOverTime(db,day1, day2) { 
-        var first_day = day1;
-		var last_day = day2
-        return new Promise(async function (resolve, reject){
-            /**
-             * code
-             */
-        });
-    };
+	static async getDeathsOverTime(day1, day2) { 
+		var day_get = day1;
+		var day_end = day2;
+		var i;
+		let total = 0;
+		return new Promise(async function (resolve, reject){
+			let collection = await getCollection(db,'c19DayWise');
+			collection.find({"Date":{$gte: day_get, $lte: day_end }}).toArray((err, items)=>{
+				if (err) reject (err);
+				if(items.length > 0) {
+					for(i = 0; i < items.length; i++){
+						total += parseInt(items[i].Deaths);
+					}
+					resolve(total); 
+				}else{
+					resolve('There is no comparable data for '+ day_get + ", " + day_end)
+				}	
+			
+			});
+		})
+	};
+
+	static async getCountryCasesOverTime(country, day1, day2) {
+		var country_to_get = country;
+		var day_get = day1;
+		var day_end = day2;
+		return new Promise(async function (resolve, reject) {
+			let collection = await _get_collection('c19DayWise');
+			collection.find({"Date":{$gte: day_get, $lte: day_end}}, {"Country/Region":country_to_get}).toArray((err, items)=>{
+				if (err) reject (err);
+				if (items.length > 0) {
+					for(i = 0; i < items.length; i++){
+						total += parseInt(items[i].Confirmed);
+					}
+					resolve(total);
+				}else{
+					resolve('There is no comparable data for '+ day_get + country_to_get);
+				}
+				if (items.next == day_end) {
+					resolve(items.next());
+				}
+			});
+   		})
+	};
 	
 	/* Generates an overall ratio between the amount of tweets and the virus data */
     static async tweetRatio(db,field) { 
