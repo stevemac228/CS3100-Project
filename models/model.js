@@ -70,9 +70,7 @@ class stats {
         return new Promise(async function (resolve, reject){
 			let collection = await getCollection('c19DayWise');
 			let fieldArray[] = getField(field);
-			 collection.find({"Date":day_to_get},{_id: 0,"Date": 0,"Confirmed":fieldArray[0],"Deaths":fieldArray[1],"Recovered":{$elemMatch: {"Date": day_to_get}},"Active": 0,"New cases": 0,
-					  "New deaths": 0,"New recovered": 0,"Deaths / 100 Cases": 0,"Recovered / 100 Cases": 0,"Deaths / 100 Recovered": 0,
-					  "No. of countries": 0})(err, items)=>{
+			 collection.find({"Date":day_to_get}).toArray(err, items)=>{
 				if (err) reject(err);
 				if(items.length > 0) {
 					resolve(items); 
