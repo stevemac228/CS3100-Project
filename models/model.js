@@ -3,9 +3,9 @@ const { DB } = require("mongodb");
 const e = require("express");
 
 /* Resposible for connection to the various collections */
-async function getCollection (collectionName){ //terms, c19DayWise, c19Worldometer, c19FullGrouped, fullClean
+async function getCollection (db,collectionName){ //terms, c19DayWise, c19Worldometer, c19FullGrouped, twtfullClean
     try{
-	    	let db = await client.getDb();
+	    //let db = await client.getDb();
 		return await db.collection(collectionName);
 	}catch(err){
 		throw err;
@@ -31,10 +31,10 @@ async function getField (fieldType){
 class stats {
 	
 	/*Gets the amount of times a valid term was tweeted*/
-    static async getTweetCountByTerm(term) {
+    static async getCountByTerm(db,term) {
         var term_get = term;
         return new Promise(async function (resolve, reject){
-			let collection = await getCollection("terms");
+			let collection = await getCollection(db,"terms");
 			 collection.find({"term":term_get}).toArray((err, items)=>{
 				if (err) reject(err);
 				if(items.length > 0) {
@@ -46,18 +46,34 @@ class stats {
 			});	 
 		});
     };
-
-	/* Gets all info for a day */
-    static async getByDay(day) {
+    /*Gets the amount of tweets on input day*/
+	static async getTweetsByDay(db,day) {
         var day_to_get = day;
         return new Promise(async function (resolve, reject){
-			let collection = await getCollection('c19DayWise');
+			let collection = await getCollection(db,'twtFullClean');
+			 collection.find({"date":day_to_get}).toArray((err, items)=>{
+				if (err) reject(err);
+				if(items.length > 0) {
+					resolve(items); 
+				}else{
+					console.log(day_to_get +' was not Found');
+					resolve('There are no tweets found for '+ day_to_get);
+				}
+			});	 
+		});
+    };
+
+	/* Gets all info for a day */
+    static async getByDay(db,day) {
+        var day_to_get = day;
+        return new Promise(async function (resolve, reject){
+			let collection = await getCollection(db,'c19DayWise');
 			 collection.find({"Date":day_to_get}).toArray((err, items)=>{
 				if (err) reject(err);
 				if(items.length > 0) {
 					resolve(items); 
 				}else{
-                    console.log('The day '+ day_to_get +' was not Found');
+                    console.log('The day '+ day_to_get +' was not found');
 					resolve('There are no documented cases for '+ day_to_get);
 				}
 			});	 
@@ -65,28 +81,35 @@ class stats {
     };
 	
 	/* Gets specific info for a day */
-    static async getInfoByDay(day, field) {
+    static async getInfoByDay(db,day, field) {
         var day_to_get = day;
+		var field_to_get = field;
         return new Promise(async function (resolve, reject){
-			let collection = await getCollection('c19DayWise');
-			let fieldArray[] = getField(field);
-			 collection.find({"Date":day_to_get}).toArray(err, items)=>{
+			let collection = await getCollection(db,'c19DayWise');
+			 collection.find({"Date":day_to_get}).toArray((err, items)=>{
 				if (err) reject(err);
 				if(items.length > 0) {
-					resolve(items); 
+					if (field_to_get == 'Active'){
+						const picked = (({Active}) => ({Active}))(items[0]);
+						resolve(picked); 
+					}else if (field_to_get == 'Deaths'){
+						const picked = (({Deaths}) => ({Deaths}))(items[0]);
+						resolve(picked); 
+					}
+					
 				}else{
-                    console.log('The day '+ day_to_get +' was not Found');
+                    console.log('The day '+ day_to_get +' was not found');
 					resolve('There are no documentation for '+ day_to_get);
 				}
 			});	 
 		});
     };
 	
-	/**/
-    static async getCountry(country) {
+	/*Gets specific info for a country*/
+    static async getCountry(db,country) {
         var country_to_get = country;
         return new Promise(async function (resolve, reject){
-			let collection = await getCollection('c19Worldometer');
+			let collection = await getCollection(db,'c19Worldometer');
 			 collection.find({"Country/Region":country_to_get}).toArray((err, items)=>{
 				if (err) reject(err);
 				if(items.length > 0) {
@@ -99,88 +122,52 @@ class stats {
 		});
     };
 
-	/**/
-    static async getDayandCountry(day, country) {
+	/*Gets all information for a country on a specific date*/
+    static async getDayandCountry(db,day, country) {
         var day_to_get = day;
         var country_to_get = country;
         return new Promise(async function (resolve, reject){
-			let collection = await getCollection('c19FullGrouped');
-			 collection.find({"Date":day_to_get}, {"Country/Region":country_to_get}).toArray((err, items)=>{
+			let collection = await getCollection(db,'c19FullGrouped');
+			 collection.find({"Date":day_to_get,"Country/Region":country_to_get}).toArray((err, items)=>{
 				if (err) reject(err);
 				if(items.length > 0) {
 					resolve(items); 
 				}else{
-					console.log(day_to_get +", "+ country_to_get +' was not Found');
-					resolve('There are no documented cases for '+ day_to_get +" "+ country_to_get);
+					console.log(country_to_get +", "+ day_to_get +' was not Found');
+					resolve('There are no documented cases for '+ country_to_get +" on "+ day_to_get);
 				}
-			});	 
-		});
-    };
-
-	/**/
-    static async getTweetsByDay(day) {
-        var day_to_get = day;
-        return new Promise(async function (resolve, reject){
-			let collection = await getCollection('fullClean');
-			 collection.find({"date":day_to_get}).toArray((err, items)=>{
-				if (err) reject(err);
-				if(items.length > 0) {
-					resolve(items); 
-				}else{
-					console.log(day_to_get +' was not Found');
-					resolve('There are no documented cases for '+ day_to_get);
-				}
-			});	 
-		});
-    };
-
-	/**/
-    static async dayCompare(day) {
-        var day_to_get = day;
-        return new Promise(async function (resolve, reject){
-			let collection = await getCollection('fullClean');
-            let collection2 = await _get_collection('c19DayWise');
-			collection.find({"date":day_to_get}).toArray((err, items1)=>{
-                collection2.find({"date":day_to_get}).toArray((err, items2)=>{
-                    if (err) reject(err);
-                    //console.log(items1+" "+ items2);
-                    if(items1.length > 0 && items1.length > 0) {
-                        resolve(items1); 
-                    }else{
-                        console.log(day_to_get +' was not found');
-                        resolve('There is no comparable data for '+ day_to_get);
-                    }
-                });
 			});	 
 		});
     };
 	
 	/* Returns all cases within a range of time */
-    static async casesOverTime(id, id2) {
+    static async getCasesOverTime(db,id, id2) {
         var day_get = id;
-	var day_end = id2
+		var day_end = id2;
+		var i;
+		let total = 0;
         return new Promise(async function (resolve, reject){
-            let collection = await _get_collection('c19DayWise');
-			collection.find({"date":day_get}).toArray((err, items)=>{
+            let collection = await getCollection(db,'c19DayWise');
+			collection.find({"Date":{$gte: day_get, $lte: day_end }}).toArray((err, items)=>{
 				if (err) reject (err);
-				if (items.length > 0) {
-					while (items.next() != day_end) {
-						console.log(items);
-						items = items.next(); }
+				if(items.length > 0) {
+
+					for(i = 0; i < items.length; i++){
+						total += parseInt(items[i].Confirmed);
+					}
+					resolve(total); 
 				}else{
-					resolve('There is no comparable data for '+ day_get)
+					resolve('There is no comparable data for '+ day_get + ", " + day_end)
 				}	
-				if (items.next == day_end) {
-					resolve(items.next())
-				}
-				});
+				
+			});
    		})
 	};
 	
 	/* Returns all deaths within a range of time */
-    static async deathsOverTime(day1, day2) { 
+    static async deathsOverTime(db,day1, day2) { 
         var first_day = day1;
-	var last_day = day2
+		var last_day = day2
         return new Promise(async function (resolve, reject){
             /**
              * code
@@ -189,7 +176,7 @@ class stats {
     };
 	
 	/* Generates an overall ratio between the amount of tweets and the virus data */
-    static async tweetRatio(field) { 
+    static async tweetRatio(db,field) { 
         var x;
         return new Promise(async function (resolve, reject){
             /**
