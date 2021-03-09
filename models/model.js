@@ -127,7 +127,7 @@ class stats {
     };
 	
 	/* Returns all cases within a range of time */
-	static async getCasesOverTime(db, day1, day2,field) {
+	static async getInfoOverTime(db, day1, day2,field) {
 		var day_get = day1;
 		var day_end = day2;
 		var field_to_get = field;
@@ -166,7 +166,7 @@ class stats {
 	};
 
 	/* Get all cases for a country within a range of time */
-	static async getCountryCasesOverTime(db, country, day1, day2,field) {
+	static async getCountryInfoOverTime(db, country, day1, day2,field) {
 		var country_to_get = country;
 		var day_get = day1;
 		var day_end = day2;

@@ -89,7 +89,7 @@ describe('Testing the API', async function(){
         });
 
         it('Success 6: Get the amount of cases over time for 2 days', async function(){
-            objs = Model.getCasesOverTime(db,'2020-01-22','2020-01-30','Confirmed');
+            objs = Model.getInfoOverTime(db,'2020-01-22','2020-01-30','Confirmed');
             objs.then(function(result){
                 assert.strictEqual(result == 28607, true);
             })

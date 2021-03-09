@@ -76,13 +76,13 @@ const getInfoByDay = async (req, res) => {
 	}	
 }
 
-const getCasesOverTime = async (req, res) => {
+const getInfoOverTime = async (req, res) => {
 	const day_get = req.params.date; 
 	const day_end =  req.params.date2;
 	const field_to_get = req.params.field;
 	let db = req.db;
 	try{
-		let obj = await Model.getCasesOverTime(db,day_get,day_end,field_to_get);
+		let obj = await Model.getInfoOverTime(db,day_get,day_end,field_to_get);
 		res.send(obj);
 	}catch(err){
 		res.send('There was an error while retrieving the day. (err:'+err+')');
@@ -109,7 +109,7 @@ const getCountryOverTime = async (req, res) => {
 	const field_to_get = req.params.field;
 	let db = req.db;
 	try{
-		let obj = await Model.getCountryCasesOverTime(db,country_to_get,day_get,day_end,field_to_get);
+		let obj = await Model.getCountryInfoOverTime(db,country_to_get,day_get,day_end,field_to_get);
 		res.send(obj);
 	}catch(err){
 		res.send('There was an error while retrieving the day. (err:'+err+')');
@@ -126,7 +126,7 @@ module.exports = {
 	getCountry,
 	getDayandCountry,
 	getInfoByDay,
-	getCasesOverTime,
+	getInfoOverTime,
 	getCountryOverTime,
 	getRatio,
 }
