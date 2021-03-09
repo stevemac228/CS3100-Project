@@ -19,7 +19,7 @@ class stats {
 		var term_get = term;
 		return new Promise(async function (resolve, reject){
 			let collection = await getCollection(db,"terms");
-			collection.find({"term":term_get}).toArray((err, items)=>{
+			collection.find({"term":term_get}).toArray((err, items)=>{ //searches collection for desired term
 				if (err) reject(err);
 				if(items.length > 0) {
 					resolve(items); 
@@ -73,6 +73,7 @@ class stats {
 			let collection = await getCollection(db,'c19DayWise');
 			collection.find({"Date":day_to_get}).toArray((err, items)=>{
 				if (err) reject(err);
+				/* Section to identify which field is being asked to generate the correct result */
 				if(items.length > 0) {
 					if (field_to_get == 'Cases'){
 						const picked = (({Active}) => ({Active}))(items[0]);
@@ -138,7 +139,7 @@ class stats {
 			collection.find({"Date":{$gte: day_get, $lte: day_end }}).toArray((err, items)=>{
 				if (err) reject (err);
 				if(items.length > 0) {
-					if (field_to_get == 'Cases'){
+					if (field_to_get == 'Cases'){ 
 						for(i = 0; i < items.length; i++){
 						const picked = (({Active}) => ({Active}))(items[i]);
 							total += parseInt(picked.Active);
@@ -215,7 +216,7 @@ class stats {
 		var totalRecoveries = 0;
 		var ratio = 0;
 		return new Promise(async function (resolve, reject){
-			let collection = await getCollection(db,'twtFullCleanINT');
+			let collection = await getCollection(db,'twtFullCleanINT'); //last minute adjustment to fix an error in the db
 			let collection2 = await getCollection(db,'c19DaywiseINT');
 			collection.find({}).toArray((err, items)=>{
 				if (err) reject(err);
@@ -224,12 +225,11 @@ class stats {
 						totalTweets = totalTweets + items[i].tweetAmount;
 					}
 					if (field_to_get == 'Cases'){
-						collection2.find().sort({Confirmed:-1}).limit(1).toArray((err, items)=>{
+						collection2.find().sort({Confirmed:-1}).limit(1).toArray((err, items)=>{ //gets max in the collection
 							totalCases = items[0].Confirmed;
-							ratio = (totalTweets/totalCases).toFixed(2);
+							ratio = (totalTweets/totalCases).toFixed(2); //rounds result to the second decimal place
 							resolve(ratio.toString());
-						});; //gets max in the collection
-						
+						});;
 					}else if (field_to_get == 'Deaths'){
 						totalDeaths = collection2.find().sort({Deaths:-1}).limit(1);
 						ratio = (totalTweets/totalDeaths).toFixed(2);
