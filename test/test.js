@@ -191,7 +191,7 @@ describe('Testing the API', async function(){
                 assert.strictEqual(objs,0.45);
             });
         });
-        it('Success 10: Get cases over time for a speecific country', function(){
+        it('Success 10: Get cases over time for a specific country', function(){
             var data = "Canada";
             var data2 = "2020-01-30";
             var data3 = "2020-02-10";
