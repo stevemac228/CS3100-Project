@@ -1,4 +1,4 @@
-Province/State,Country/Region,Lat,Long,Date,Confirmed,Deaths,Recovered,Active,WHO Region
+Province/State,Country/Region,Lat,Long,Date,Confirmed,Deaths,Recovered,Active,WHO_Region
 ,Afghanistan,33.93911,67.709953,2020-01-22,0,0,0,0,Eastern Mediterranean
 ,Albania,41.1533,20.1683,2020-01-22,0,0,0,0,Europe
 ,Algeria,28.0339,1.6596,2020-01-22,0,0,0,0,Africa

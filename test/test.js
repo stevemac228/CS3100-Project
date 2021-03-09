@@ -5,6 +5,7 @@ const request = require('request');
 const mongo = require('../utils/db');
 const { response } = require('express');
 
+
 var db;
 before(async function() {
 	try {
@@ -21,7 +22,6 @@ after(async function() {
         throw err;
     }
 });
-
 
 describe('Testing the API', async function(){
     describe('Testing- Simple cases', function(){
@@ -155,18 +155,53 @@ describe('Testing the API', async function(){
                 url:     myurl+'/date/'+ data + '/' + data2,
             }, function(error,response,body){
                 objs = JSON.parse(body);
-                assert.strictEqual(objs.Deaths,'806');
+                assert.strictEqual(objs.New_deaths,'87');
             });
         });
-        it('Success 6: Get only the Active cases on 2020-03-11 ', function(){
+        it('Success 7: Get only the Active cases on 2020-03-11 ', function(){
             var data = "2020-03-11";
-            var data2 = "Active";
+            var data2 = "Cases";
             request.get({
                 headers: {'content-type': 'application/json'},
                 url:     myurl+'/date/'+ data + '/' + data2,
             }, function(error,response,body){
                 objs = JSON.parse(body);
                 assert.strictEqual(objs.Active,'56136');
+            });
+        });
+        it('Success 8: Get cases over time for 2020-01-22 -> 2020-01-30', function(){
+            var data = "2020-01-22";
+            var data2 = "2020-01-30";
+            var data3 = "Cases";
+            request.get({
+                headers: {'content-type': 'application/json'},
+                url:     myurl+'/date/'+ data + '/' + data2 + '/' + data3,
+            }, function(error,response,body){
+                objs = JSON.parse(body);
+                assert.strictEqual(objs,27312);
+            });
+        });
+        it('Success 9: Get ratio of tweets to cases', function(){
+            var data = "Cases";
+            request.get({
+                headers: {'content-type': 'application/json'},
+                url:     myurl+'/ratio/'+ data,
+            }, function(error,response,body){
+                objs = JSON.parse(body);
+                assert.strictEqual(objs,0.45);
+            });
+        });
+        it('Success 10: Get cases over time for a speecific country', function(){
+            var data = "Canada";
+            var data2 = "2020-01-30";
+            var data3 = "2020-02-10";
+            var data4 = "Cases";
+            request.get({
+                headers: {'content-type': 'application/json'},
+                url:     myurl+'/country/'+ data + '/' + data2 + '/' + data3+ '/' + data4,
+            }, function(error,response,body){
+                objs = JSON.parse(body);
+                assert.strictEqual(objs,60);
             });
         });
     });

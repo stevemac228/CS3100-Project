@@ -1,4 +1,4 @@
-Date,Confirmed,Deaths,Recovered,Active,New cases,New deaths,New recovered,Deaths / 100 Cases,Recovered / 100 Cases,Deaths / 100 Recovered,No. of countries
+Date,Confirmed,Deaths,Recovered,Active,New_cases,New_deaths,New_recovered,Deaths_100_Cases,Recovered_100_Cases,Deaths_100_Recovered,No_of_countries
 2020-01-22,555,17,28,510,0,0,0,3.06,5.05,60.71,6
 2020-01-23,654,18,30,606,99,1,2,2.75,4.59,60.0,8
 2020-01-24,941,26,36,879,287,8,6,2.76,3.83,72.22,9

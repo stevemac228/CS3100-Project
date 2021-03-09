@@ -1,4 +1,4 @@
-Country/Region,Continent,Population,TotalCases,NewCases,TotalDeaths,NewDeaths,TotalRecovered,NewRecovered,ActiveCases,"Serious,Critical",Tot Cases/1M pop,Deaths/1M pop,TotalTests,Tests/1M pop,WHO Region
+Country/Region,Continent,Population,TotalCases,NewCases,TotalDeaths,NewDeaths,TotalRecovered,NewRecovered,ActiveCases,"Serious,Critical",Tot_Cases_1M_pop,Deaths_1M_pop,TotalTests,Tests_1M_pop,WHO_Region
 USA,North America,331198130,5032179,,162804,,2576668,,2292707,18296,15194,492,63139605,190640,Americas
 Brazil,South America,212710692,2917562,,98644,,2047660,,771258,8318,13716,464,13206188,62085,Americas
 India,Asia,1381344997,2025409,,41638,,1377384,,606387,8944,1466,30,22149351,16035,South-EastAsia

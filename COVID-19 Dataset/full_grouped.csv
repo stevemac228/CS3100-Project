@@ -1,4 +1,4 @@
-Date,Country/Region,Confirmed,Deaths,Recovered,Active,New cases,New deaths,New recovered,WHO Region
+Date,Country/Region,Confirmed,Deaths,Recovered,Active,New_cases,New_deaths,New_recovered,WHO_Region
 2020-01-22,Afghanistan,0,0,0,0,0,0,0,Eastern Mediterranean
 2020-01-22,Albania,0,0,0,0,0,0,0,Europe
 2020-01-22,Algeria,0,0,0,0,0,0,0,Africa

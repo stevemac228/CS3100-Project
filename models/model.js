@@ -78,19 +78,19 @@ class stats {
 						const picked = (({Active}) => ({Active}))(items[0]);
 						resolve(picked); 
 					}else if (field_to_get == 'Deaths'){
-						const picked = (({'New deaths'}) => ({'New deaths'}))(items[0]);
+						const picked = (({New_deaths}) => ({New_deaths}))(items[0]);
 						resolve(picked); 
 					}else if (field_to_get == 'Recoveries'){
-						const picked = (({'New recovered'}) => ({'New recovered'}))(items[0]);
+						const picked = (({New_recovered}) => ({New_recovered}))(items[0]);
 						resolve(picked); 
 					}else{
 						console.log('The day '+ day_to_get +' was not found');
 						resolve('There are no documentation for '+ day_to_get);
 					}
-				});	 
+				};	 
 			});
-		};
-				   
+		});
+	};		   
 	/* Gets specific info for a country */
 	static async getCountry(db,country) {
         var country_to_get = country;
@@ -127,70 +127,79 @@ class stats {
     };
 	
 	/* Returns all cases within a range of time */
-	static async getCasesOverTime(db, day1, day2) {
+	static async getCasesOverTime(db, day1, day2,field) {
 		var day_get = day1;
 		var day_end = day2;
+		var field_to_get = field;
+		var total = 0;
 		var i;
-		let total = 0;
 		return new Promise(async function (resolve, reject){
 			let collection = await getCollection(db,'c19DayWise');
 			collection.find({"Date":{$gte: day_get, $lte: day_end }}).toArray((err, items)=>{
 				if (err) reject (err);
 				if(items.length > 0) {
-					for(i = 0; i < items.length; i++){
-						total += parseInt(items[i].Confirmed);
+					if (field_to_get == 'Cases'){
+						for(i = 0; i < items.length; i++){
+						const picked = (({Active}) => ({Active}))(items[i]);
+							total += parseInt(picked.Active);
+						}
+						resolve(total.toString()); 
+					}else if (field_to_get == 'Deaths'){
+						for(i = 0; i < items.length; i++){
+							const picked = (({New_deaths}) => ({New_deaths}))(items[i]);
+							total += parseInt(picked.New_deaths);
+						}
+						resolve(total.toString());  
+					}else if (field_to_get == 'Recoveries'){
+						for(i = 0; i < items.length; i++){
+							const picked = (({New_recovered}) => ({New_recovered}))(items[i]);
+							total += parseInt(picked.New_recovered);
+						}
+						resolve(total.toString()); 
+					}else{
+						console.log('The day '+ day_get +' was not found');
+						resolve('There are no documentation for '+ day_get);
 					}
-					resolve(total); 
-				}else{
-					resolve('There is no comparable data for '+ day_get + ", " + day_end)
-				}	
-				
+				};	
 			});
    		});
 	};
-	
-	/* Returns all deaths within a range of time */
-	static async getDeathsOverTime(db, day1, day2) { 
-		var day_get = day1;
-		var day_end = day2;
-		var i;
-		let total = 0;
-		return new Promise(async function (resolve, reject){
-			let collection = await getCollection(db,'c19DayWise');
-			collection.find({"Date":{$gte: day_get, $lte: day_end }}).toArray((err, items)=>{
-				if (err) reject (err);
-				if(items.length > 0) {
-					for(i = 0; i < items.length; i++){
-						total += parseInt(items[i].Deaths);
-					}
-					resolve(total); 
-				}else{
-					resolve('There is no comparable data for '+ day_get + ", " + day_end)
-				}	
-			
-			});
-		});
-	};
 
 	/* Get all cases for a country within a range of time */
-	static async getCountryCasesOverTime(db, country, day1, day2) {
+	static async getCountryCasesOverTime(db, country, day1, day2,field) {
 		var country_to_get = country;
 		var day_get = day1;
 		var day_end = day2;
+		var field_to_get = field;
+		var i;
+		var total = 0;
 		return new Promise(async function (resolve, reject) {
-			let collection = await _get_collection(db,'c19FullGrouped');
-			collection.find({"Date":{$gte: day_get, $lte: day_end}}, {"Country/Region":country_to_get}).toArray((err, items)=>{
+			let collection = await getCollection(db,'c19FullGrouped');
+			collection.find({"Date":{$gte: day_get, $lte: day_end}, "Country/Region":country_to_get}).toArray((err, items)=>{
 				if (err) reject (err);
 				if (items.length > 0) {
-					for(i = 0; i < items.length; i++){
-						total += parseInt(items[i].Confirmed);
+					if (field_to_get == 'Cases'){
+						for(i = 0; i < items.length; i++){
+							const picked = (({Active}) => ({Active}))(items[i]);
+							total += parseInt(picked.Active);
+						}
+						resolve(total.toString()); 
+					}else if (field_to_get == 'Deaths'){
+						for(i = 0; i < items.length; i++){
+							const picked = (({New_deaths}) => ({New_deaths}))(items[i]);
+							total += parseInt(picked.New_deaths);
+						}
+						resolve(total.toString());  
+					}else if (field_to_get == 'Recoveries'){
+						for(i = 0; i < items.length; i++){
+							const picked = (({New_recovered}) => ({New_recovered}))(items[i]);
+							total += parseInt(picked.New_recovered);
+						}
+						resolve(total.toString()); 
+					}else{
+						console.log('The day '+ day_get +' was not found');
+						resolve('There are no documentation for '+ day_get);
 					}
-					resolve(total);
-				}else{
-					resolve('There is no comparable data for '+ day_get + country_to_get);
-				}
-				if (items.next == day_end) {
-					resolve(items.next());
 				}
 			});
    		});
@@ -199,36 +208,45 @@ class stats {
 	/* Generates an overall ratio between the amount of tweets and the virus data */
 	static async tweetRatio(db,field) { 
 		var field_to_get = field;
+		var i;
+		var totalTweets = 0;
+		var totalCases = 0;
+		var totalDeaths = 0;
+		var totalRecoveries = 0;
+		var ratio = 0;
 		return new Promise(async function (resolve, reject){
-			let collection = await getCollection(db,'twtFullClean');
-			let collection2 = await getCollection(db,'c19DayWise');
-			collection.find({"Date":day_to_get}).toArray((err, items)=>{
+			let collection = await getCollection(db,'twtFullCleanINT');
+			let collection2 = await getCollection(db,'c19DaywiseINT');
+			collection.find({}).toArray((err, items)=>{
 				if (err) reject(err);
 				if(items.length > 0) {
 					for(i = 0; i < items.length; i++){
-						totalTweets += parseInt(items[i].tweetAmount);
+						totalTweets = totalTweets + items[i].tweetAmount;
 					}
 					if (field_to_get == 'Cases'){
-						totalCases = collection2.find().sort({Confirmed:-1}).limit(1); //gets max in the collection
-						ratio = totalTweet/totalCases;
-						resolve(ratio);
+						collection2.find().sort({Confirmed:-1}).limit(1).toArray((err, items)=>{
+							totalCases = items[0].Confirmed;
+							ratio = (totalTweets/totalCases).toFixed(2);
+							resolve(ratio.toString());
+						});; //gets max in the collection
+						
 					}else if (field_to_get == 'Deaths'){
 						totalDeaths = collection2.find().sort({Deaths:-1}).limit(1);
-						ratio = totalTweet/totalDeaths;
-						resolve(ratio);
+						ratio = (totalTweets/totalDeaths).toFixed(2);
+						resolve(ratio.toString());
 					}else if (field_to_get == 'Recoveries'){
 						totalRecoveries = collection2.find().sort({Recovered:-1}).limit(1);
-						ratio = totalTweet/totalRecoveries;
-						resolve(ratio);
+						ratio = (totalTweets/totalRecoveries).toFixed(2);
+						resolve(ratio.toString());
 					}else{
-						console.log('The day '+ day_to_get +' was not found');
-						resolve('There are no documentation for '+ day_to_get);
+						console.log('The information was not found');
+						resolve('The information was not found');
 					}
-				});	 
+				};	 
 			});
-		};
-
-}
+		});
+	};
+};
 
 
 module.exports = stats
