@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<head>
+    <title>Book Store App</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Book Store App</h1>
+    <div class="tab">
+        <button class="tablinks">Books</button>
+        <button class="tablinks">Loans</button>               
+    </div>
+      
+    <div id="books-tab" class="tabcontent">
+        <button class="tablinks">Add-Book</button>
+        <button id="btn-list-books" class="tablinks">Show-Book</button> 
+        <button class="tablinks">Detail-Book</button>
+        <button class="tablinks">Update-Book</button>  
+        <button class="tablinks">Delete-Book</button> 
+    </div>
+      
+    <div id="loans-tab" class="tabcontent">
+        <button class="tablinks">Add-Loan</button>
+        <button id="btn-list-loans" class="tablinks">Show-Loan</button>  
+        <button class="tablinks">Update-Loan</button>  
+        <button class="tablinks">Delete-Loan</button> 
+    </div>
+    
+    <div id="add-book" class="tabcontent">
+        <form>
+            <ul class="flex">
+            <li>
+                <label for="add-id">id: </label>
+                <input type="text" id="add-id" name="id">
+            </li>
+            <li>
+                <label for="add-name">Name: </label>
+                <input type="text" id="add-name" name="name">
+            </li>
+            <li>
+                <label for="add-authors">Authors: </label>
+                <input type="text" id="add-authors" name="authors">
+            </li>
+            <li>
+                <label for="add-year">Year: </label>
+                <input type="text" id="add-year" name="year">
+            </li>
+            <li>
+                <label for="add-publisher">Publisher: </label>
+                <input type="text" id="add-publisher" name="publisher">
+            </li>
+            <div>
+                <button id="add-book-btn"class="btn">Add</button>
+                <output id="add-out"class="out"></output>
+            </div> 
+            </ul>
+        </form>
+    </div>
+
+    <div id="show-book" class="tabcontent"></div>
+
+    <div id="detail-book" class="tabcontent">
+        <form>
+            <ul class="flex">
+            <li>
+                <label for="lookup-id">ID: </label>
+                <input type="text" id="lookup-id" name="_id">
+            </li>
+            <div class="submit">
+                <button id="detail-book-btn"class="btn">Search</button>
+                <output id="detail-out"class="out"></output>
+            </div>
+            </ul>
+        </form>
+        
+    </div>
+    
+    <div id="update-book" class="tabcontent">
+        <form>
+            <ul class="flex">
+            <li>
+                <label for="update-id">ID: </label>
+                <input type="text" id="update-id" name="id">
+            </li>
+            <li>
+                <label for="update-name">Name: </label>
+                <input type="text" id="update-name" name="name">
+            </li>
+            <li>
+                <label for="update-authors">Authors: </label>
+                <input type="text" id="update-authors" name="authors">
+            </li>
+            <li>
+                <label for="update-year">Year: </label>
+                <input type="text" id="update-year" name="year">
+            </li>
+            <li>
+                <label for="update-publisher">Publisher: </label>
+                <input type="text" id="update-publisher" name="publisher">
+            </li>
+            <div>
+                <button id="update-book-btn">Update</button>
+                <output id="update-out"></output>
+            </div> 
+            </ul>
+        </form>
+    </div>
+
+    <div id="delete-book" class="tabcontent">
+        <form>
+            <ul class="flex">
+            <li>
+                <label for="delete-id">ID: </label>
+                <input type="text" id="delete-id" name="id">
+            </li>
+            <div>
+                <button id="delete-book-btn"class="btn">Delete</button>
+                <output id="delete-out"class="out"></output>
+            </div> 
+            </ul>
+        <form>
+    </div>
+
+    <div id="add-loan" class="tabcontent">
+        <form>
+            <ul class="flex">
+            <li>
+                <label for="add-loan-id">id: </label>
+                <input type="text" id="add-loan-id" name="loan-id">
+            </li>
+            <li>
+                <label for="add-book-id">Book ID: </label>
+                <input type="text" id="add-book-id" name="book-id">
+            </li>
+            <li>
+                <label for="add-date">Date: </label>
+                <input type="text" id="add-date" name="date">
+            </li>
+            <li>
+                <label for="add-client-name">Client Name: </label>
+                <input type="text" id="add-client-name" name="client-name">
+            </li>
+            <li>
+                <label for="add-was-returned">Was Returned: </label>
+                <input type="text" id="add-was-returned" name="was-returned">
+            </li>
+            <li>
+                <label for="add-date-of-return">Date of Return: </label>
+                <input type="text" id="add-date-of-return" name="date-of-return">
+            </li>
+            <div>
+                <button id="add-loan-btn"class="btn">Add</button>
+                <output id="add-loan-out"class="out"></output>
+            </div> 
+            </ul>
+        </form>
+    </div>
+
+    <div id="show-loan" class="tabcontent"></div>
+
+    <div id="update-loan" class="tabcontent">
+        <form>
+            <ul class="flex">
+            <li>
+                <label for="update-loan-id">id: </label>
+                <input type="text" id="update-loan-id" name="loan-id">
+            </li>
+            <li>
+                <label for="update-date">Date: </label>
+                <input type="text" id="update-date" name="date">
+            </li>
+            <li>
+                <label for="update-client-name">Client Name: </label>
+                <input type="text" id="update-client-name" name="client-name">
+            </li>
+            <li>
+                <label for="update-was-returned">Was Returned: </label>
+                <input type="text" id="update-was-returned" name="was-returned">
+            </li>
+            <li>
+                <label for="update-date-of-return">Date of Return: </label>
+                <input type="text" id="update-date-of-return" name="date-of-return">
+            </li>
+            <div>
+                <button id="update-loan-btn"class="btn">Update</button>
+                <output id="update-loan-out"class="out"></output>
+            </div> 
+            </ul>
+        </form>
+    </div>
+
+    <div id="delete-loan" class="tabcontent">
+        <form>
+            <ul class="flex">
+            <li>
+                <label for="delete-loan-id">ID: </label>
+                <input type="text" id="delete-loan-id" name="id">
+            </li>
+            <div>
+                <button id="delete-loan-btn" class="btn">Delete</button>
+                <output id="delete-loan-out" class="out"></output>
+            </div> 
+            </ul>
+        <form>
+    </div>
+
+    <script src="./js/main.js"></script>   
+    <script src="./js/add.js"></script>    
+    <script src="./js/list.js"></script>    
+    <script src="./js/detail.js"></script>  
+    <script src="./js/update.js"></script>      
+    <script src="./js/delete.js"></script>
+    <script src="./js/addL.js"></script> 
+    <script src="./js/deleteL.js"></script> 
+    <script src="./js/updateL.js"></script> 
+    <script src="./js/listL.js"></script>            
+</body>

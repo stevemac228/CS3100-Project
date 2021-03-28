@@ -1,0 +1,146 @@
+html {
+    background-color: #171717;
+}
+h1 {
+    color: #c1c0c0;
+}
+.tab {
+    overflow: hidden;
+    border: 1px solid rgb(60, 61, 61);
+    background-color: rgb(28, 29, 29);
+    margin:0%;
+}
+
+.tabcontent {
+    overflow: hidden;
+    border: 1px solid rgb(60, 61, 61);
+    background-color: rgb(28, 29, 29);
+    display:none;
+}
+  
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    color: #c1c0c0;
+}
+
+.tabcontent button {
+    background-color: inherit;
+    float: left;
+    border: 1px solid rgb(60, 61, 61);
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    color: #c1c0c0;
+}
+ 
+.tab button:hover {
+    background-color: #ddd;
+    color:rgb(60, 61, 61);
+}
+  
+.tab button.active {
+    background-color: #ccc;
+}
+
+.tabcontent button:hover {
+    background-color: #ddd;
+    color:rgb(60, 61, 61);
+}
+  
+.tabcontent button.active {
+    background-color: #ccc;
+}
+
+  
+table{
+    margin:0;
+    padding:0;
+    margin-left: auto;
+    margin-right: auto;
+}
+th{
+    color:#c1c0c0;
+}
+.even-row{
+    background-color:#ddd;
+}
+.odd-row{
+    background-color: #ccc;
+}
+
+
+
+
+
+
+.flex {
+  list-style-type: none;
+  padding: 0;
+}
+
+.flex{
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.flex li{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.flex> li:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.flex li label{
+  padding: 8px;
+  font-weight: 300;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: #c1c0c0;
+}
+
+.flex> li > label,
+.flex li p {
+  flex: 1 0 120px;
+  max-width: 220px;
+}
+
+.flex> li > label + *{
+  flex: 1 0 220px;
+}
+
+.flex li textarea {
+  padding: 15px;
+  border: none;
+}
+
+.flex li button {
+  margin-left: auto;
+  padding: 8px 16px;
+  border: none;
+  background: #333;
+  color: #f2f2f2;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  border-radius: 2px;
+}
+
+.out{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color:#c1c0c0;
+}
