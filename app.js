@@ -21,6 +21,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/", router)
+app.use(express.static(__dirname + '/view'))
 
 server = app.listen(port, () => {
 	console.log('Example app listening at http://localhost:%d', port);
