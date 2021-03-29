@@ -7,6 +7,7 @@ $(document).ready(function(){
     function changeDivComponents(tab_element_clicked){
         $(".tabcontent").each(function(index){
             let this_id = $(this).attr('id');
+            console.log(this_id + ' '+ tab_element_clicked.toLowerCase());
             if (this_id.includes(tab_element_clicked.toLowerCase())){
                 $(this).show();
             }else{
@@ -14,7 +15,7 @@ $(document).ready(function(){
             }                    
         });
     }
-    $(".tablinks").click(function(){
-        changeDivComponents($(this).text());
+    $(".tab").click(function(){
+        changeDivComponents($(this).attr('id'));
     });
 });
