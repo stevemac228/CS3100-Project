@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>Book Store App</title>
+    <title>CATCA</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
@@ -47,14 +47,38 @@
         </ul>
     </nav>
 
-    <div id="tdate" class="tabcontent">
-        <p>test</p>
+    <div id="tterm" class="tabcontent">
+        <input type="text" name="name" autocomplete="off" required id="searchTerm">
+        <label for="name" class="label-name" >
+            <span class="content-name">Enter a term:</span>
+        </label>
+        <button id="byTermBtn" class="btn">SEARCH</button> 
     </div>
 
-    <div id="tterm" class="tabcontent">
-        <p>test2</p>
+    <p id="byTermBtn-out" class="out"></p>
+
+
+
+
+
+    <div id="tdate" class="tabcontent">
+        <input type="text" name="name" autocomplete="off" required id="searchDate">
+        <label for="name" class="label-name" >
+            <span class="content-name">Enter a Date (yyyy-m-d):</span>
+        </label>
+        <button id="byDateBtn" class="btn">SEARCH</button> 
     </div>
+    <p id="byDateBtn-out" class="out"></p>
+
+
+
+
+
 
     <script src="./js/main.js"></script>  
+    <script src="./js/byTerm.js"></script>
+    <script src="./js/byDate.js"></script>
+    <script src="./js/button.js"></script>
+    
       
 </body>

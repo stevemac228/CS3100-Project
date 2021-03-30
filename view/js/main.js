@@ -7,7 +7,14 @@ $(document).ready(function(){
     function changeDivComponents(tab_element_clicked){
         $(".tabcontent").each(function(index){
             let this_id = $(this).attr('id');
-            console.log(this_id + ' '+ tab_element_clicked.toLowerCase());
+            if (this_id.includes(tab_element_clicked.toLowerCase())){
+                $(this).show();
+            }else{
+                $(this).hide();
+            }                    
+        });
+        $(".out").each(function(index){
+            let this_id = $(this).attr('id');
             if (this_id.includes(tab_element_clicked.toLowerCase())){
                 $(this).show();
             }else{
@@ -19,3 +26,5 @@ $(document).ready(function(){
         changeDivComponents($(this).attr('id'));
     });
 });
+
+
