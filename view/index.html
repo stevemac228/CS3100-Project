@@ -45,7 +45,15 @@
             </li>
             <li>
                 <a href="#">Compare &#x25BC;</a>
-
+                <ul class= "sub">
+                    <li>
+                        <!--COMPARES TWEETS IN A DAY AND A PARTICUALR COVID STAT FOR THAT DAY-->
+                        <button class="tab" id="TvCday">By Day</button>
+                    </li>
+                    <li>
+                        <!--JUST A BUNCH OF HARD CODE FOR THIS ONE-->
+                        <button class="tab" id="Rstats">Relational Statistics</button>
+                    </li>
             </li>
         </ul>
     </nav>
@@ -156,10 +164,6 @@
     </div>
     <p id="byrangeBtn-out" class="out"></p>
 
-
-
-
-
     <!--SCRIPT IMPORTS-->
     <script src="./js/main.js"></script>  
     <script src="./js/byTerm.js"></script>
@@ -198,5 +202,4 @@
         input.addEventListener("keyup", function(event) {if (event.keyCode === 13) {event.preventDefault();document.getElementById("crange-btn").click();}});
     </script>
     
-      
 </body>
