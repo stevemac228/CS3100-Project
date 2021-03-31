@@ -1,5 +1,5 @@
 const MongoClient = require("mongodb").MongoClient
-const url ="mongodb://localhost:27017";
+const url ="mongodb+srv://cs3100:catca@cluster0.7ltlt.mongodb.net/test";
 const client = new MongoClient(url, { useUnifiedTopology: true });
 
 
