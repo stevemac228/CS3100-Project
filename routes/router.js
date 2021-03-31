@@ -11,4 +11,5 @@ router.get("/date/:date/:field",model_controller.getInfoByDay)
 router.get("/date/:date/:date2/:field",model_controller.getInfoOverTime)
 router.get("/ratio/:field",model_controller.getRatio)
 router.get("/country/:country/:date/:date2/:field",model_controller.getCountryOverTime)
+router.get("/all",model_controller.getCovidWorld)
 module.exports = router

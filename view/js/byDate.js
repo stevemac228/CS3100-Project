@@ -12,10 +12,10 @@ $(document).ready(function(){
                     duration: 2000,
                     easing: 'linear',
                     step: function () {
-                    $("#byDateBtn-out").html('there were <span id="num">' + Math.floor(this.countNum).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span> tweets on <span id="term">'+ date + '</span>.');
+                    $("#byDateBtn-out").html('There were <span id="num">' + Math.floor(this.countNum).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span> tweets on <span id="term">'+ date + '</span>.');
                 },
                 complete: function () {
-                    $("#byDateBtn-out").html('there were <span id="num">' + Math.floor(this.countNum).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span> tweets on <span id="term">'+ date + '</span>.');
+                    $("#byDateBtn-out").html('There were <span id="num">' + Math.floor(this.countNum).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span> tweets on <span id="term">'+ date + '</span>.');
                 }
                 });
                   

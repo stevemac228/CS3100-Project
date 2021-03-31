@@ -117,6 +117,17 @@ const getCountryOverTime = async (req, res) => {
 	}	
 }
 
+const getCovidWorld = async (req, res) => {
+	let db = req.db;
+	try{
+		let obj = await Model.getCovidWorld(db);
+		res.send(obj);
+	}catch(err){
+		res.send('There was an error while retrieving the day. (err:'+err+')');
+		throw new Error(err);
+	}	
+}
+
 
 
 module.exports = {
@@ -129,4 +140,5 @@ module.exports = {
 	getInfoOverTime,
 	getCountryOverTime,
 	getRatio,
+	getCovidWorld
 }

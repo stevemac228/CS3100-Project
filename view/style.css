@@ -8,8 +8,7 @@ body{
   background-color: #212121;
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  flex-direction: row;
+  flex-direction: column;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -25,7 +24,7 @@ nav{
   font-family: 'Open Sans', sans-serif;
 }
 
-.logo{
+.logo a{
   color: whitesmoke;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -33,7 +32,60 @@ nav{
   line-height: 55px;
   float: left;
   padding: 0px 20px;
+  font-weight: bold;
+  text-decoration: none;
 }
+
+#home-page{
+  display:flex;
+  flex-direction: row;
+  position: relative;
+  height:100%;
+  margin-top:100px;
+  overflow: hidden;
+  flex-wrap: wrap;
+}
+
+canvas{
+  background-color: #111111;
+  border-radius: 10px 10px 10px 10px;
+  border: 5px solid #555555;
+}
+
+.graph{
+  width:50%;
+  padding:5px;
+}
+
+.hometext{
+  font-size:50px;
+  color: whitesmoke;
+}
+
+#homepagenum{
+  font-size:50px;
+  color:#5fa8d3;
+  font-weight:bold;
+}
+
+.break {
+  flex-basis: 100%;
+  height: 0;
+}
+
+#hometexttwitter,
+#ratio{
+  text-align : center;
+}
+
+#hometexttwitterterm{
+  text-align : center;
+  font-size:50px;
+  color:#5fa8d3;
+  font-weight:bold;
+}
+
+
 
 nav ul{
   float:left;
@@ -55,8 +107,6 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  border: 3px solid #555555;
-  border-radius: 60%;
   background-color: #777777;
   transition: all 0.34s;
 }
@@ -74,7 +124,6 @@ nav ul li button {
 }
 
 nav ul li button:hover {
-  border: 2px solid #555555;
   background-color: #777777;
   transition: all 0.3s;
 }
@@ -112,13 +161,27 @@ nav ul li ul li button:hover{
 
 .tabcontent{
   display:none;
+  flex-direction: column;
   position: relative;
   height:60px;
   margin-top:100px;
   overflow: hidden;
 }
+#tterm,
+#tdate,
+#cdate,
+#ccountry,
+#cdandc-1,
+#cdandc-2,
+#crange-1,
+#crange-2,
+#crange-3,
+#crange-btn,
+#cdandc-btn{  
+  align-self:center;
+}
 
-#tterm input,#tdate input {
+.tabcontent input{
   width:600px;
   height:100%;
   color:whitesmoke;
@@ -130,7 +193,7 @@ nav ul li ul li button:hover{
   font-family: 'Open Sans', sans-serif;
 }
 
-#tterm label,#tdate label{
+.tabcontent label{
   position:absolute;
   bottom:0px;
   left:0%;
@@ -141,7 +204,7 @@ nav ul li ul li button:hover{
   color:whitesmoke;
 }
 
-#tterm label::after,#tdate label::after{
+.tabcontent label::after{
   content: "";
   position: absolute;
   left: 0px;
@@ -160,23 +223,19 @@ nav ul li ul li button:hover{
   transition: all 0.3s ease;
 }
 
-#tterm label:focus + .label-name .content-name,
-#tterm input:valid + .label-name .content-name,
-#tdate label:focus + .label-name .content-name,
-#tdate input:valid + .label-name .content-name{
+.tabcontent label:focus + .label-name .content-name,
+.tabcontent input:valid + .label-name .content-name{
   transform: translateY(-150%);
   font-size: 14px;
   color: #5fa8d3;
 }
 
-#tterm input:focus + .label-name::after,
-#tterm input:valid + .label-name::after,
-#tdate input:focus + .label-name::after,
-#tdate input:valid + .label-name::after{
+.tabcontnet input:focus + .label-name::after,
+.tabcontnet input:valid + .label-name::after{
   transform: translateX(0%);
 }
 
-#tterm button,#tdate button{
+.tabcontent button{
   position: relative;
   background-color: #212121;
   height: 40px;
@@ -192,12 +251,12 @@ nav ul li ul li button:hover{
   color: #5fa8d3
 }
 
-#tterm button:hover,#tdate button:hover{
+.tabcontent button:hover{
   color: #5598be;
   border: 2px solid #5598be;
 }
 
-#byTermBtn-out,#byDateBtn-out{
+.out{
   display:none;
   color:whitesmoke;
   margin-top: 100px;
@@ -217,3 +276,141 @@ nav ul li ul li button:hover{
   font-size: 40px;
   font-weight: bolder;
 }
+
+#cdandc-2{
+  margin-top:20px;
+}
+
+#cdandc-btn{
+  margin-top:40px;
+}
+
+#bycdandcBtn{
+  position: relative;
+  background-color: #212121;
+  height: 40px;
+  width: 100px;
+  border-radius: 25px 25px 25px 25px;
+  border: 2px solid #5fa8d3;
+  outline: none;
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: #5fa8d3
+}
+
+#bycdandcBtn button:hover{
+  color: #5598be;
+  border: 2px solid #5598be;
+}
+
+#crange-2{
+  margin-top:20px;
+}
+
+#crange-btn{
+  margin-top:40px;
+}
+
+#byrangeBtn{
+  position: relative;
+  background-color: #212121;
+  height: 40px;
+  width: 100px;
+  border-radius: 25px 25px 25px 25px;
+  border: 2px solid #5fa8d3;
+  outline: none;
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: #5fa8d3
+}
+
+#byrangeBtn button:hover{
+  color: #5598be;
+  border: 2px solid #5598be;
+}
+
+#info{
+  color: #5598be;
+}
+
+#fadein{
+  opacity: 0;
+  animation-name: fadeIn;
+  animation-duration: 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+#fadein:nth-child(2){
+  animation-delay: 0.5s;
+}
+#fadein:nth-child(3){
+  animation-delay: 1s;
+}
+#fadein:nth-child(4){
+  animation-delay: 1.5s;
+}
+#fadein:nth-child(5){
+  animation-delay: 2s;
+}
+#fadein:nth-child(6){
+  animation-delay: 2.5s;
+}
+#fadein:nth-child(7){
+  animation-delay: 3s;
+}
+#fadein:nth-child(8){
+  animation-delay: 3.5s;
+}
+#fadein:nth-child(9){
+  animation-delay: 4s;
+}
+#fadein:nth-child(10){
+  animation-delay: 4.5s;
+}
+#fadein:nth-child(11){
+  animation-delay: 5s;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+#crange-3{
+  margin-top: 30px;
+}
+
+#CsearchRange3{
+  background-color: #212121;
+  border:none;
+  width:600px;
+  height:60px;
+  color:whitesmoke;
+}
+
+#CsearchRange3:after{
+  border:none;
+}
+
+.form-control:focus{
+ outline: 0 !important;
+ box-shadow: none!important;
+}
+
+
+#info2{
+  font-size: 90px;
+  color: #5598be;
+}
+
+#byrangeBtn-out{
+  margin-top: 20px;
+}
+

@@ -246,6 +246,15 @@ class stats {
 			});
 		});
 	};
+	static async getCovidWorld(db) { 
+		return new Promise(async function (resolve, reject){
+			let collection = await getCollection(db,'c19DaywiseINT');
+			collection.find({}).toArray((err, items)=>{
+				if (err) reject(err);
+				resolve(items);
+			});	
+		});
+	};
 };
 
 

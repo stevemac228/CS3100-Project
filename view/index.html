@@ -5,12 +5,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
 
 <body>
+    <!--NAVBAR-->
     <nav>
         <div class="logo">
-            <h4>Dashboard</h4>
+            <a href="#" class="tab" id="home">Dashboard</a>
         </div>
         <ul class="navlinks">
             <li>
@@ -28,32 +30,50 @@
                 <a href="#">Covid &#x25BC;</a>
                 <ul class= "sub">
                     <li>
-                        <button >By Day</button>
+                        <button class="tab" id="CDate">By Day</button>
                     </li>
                     <li>
-                        <button>By Country</button>
+                        <button class="tab" id="CCountry">By Country</button>
                     </li>
                     <li>
-                        <button>By Day and Country</button>
+                        <button class="tab" id="CDandC">By Day and Country</button>
                     </li>
                     <li>
-                        <button>By Range</button>
+                        <button class="tab" id="CRange">By Range</button>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="#">Compare &#x25BC;</a>
-                <ul class= "sub">
-                </ul>
-            </li>
-            <li>
-                <a href="#">Statistics &#x25BC;</a>
-                <ul class= "sub">
-                </ul>
+
             </li>
         </ul>
     </nav>
 
+    <!--DASHBOARD-->
+    <div id="home-page" class="tabcontent">
+        <div style="width:100%;">
+            <p id="ratio" class="hometext"></p>
+        </div>
+        <div class="break"></div>
+        <div class="graph">
+            <canvas id="myChart"></canvas>
+        </div>
+        <div class="graph">
+            <canvas id="myChart2"></canvas>
+        </div>
+        <div class="break"></div>
+        <div class="graph">
+            <p id="hometextcases" class="hometext"></p>
+            <p id="hometextdeaths" class="hometext"></p>
+            <p id="hometextrecovered" class="hometext"></p>
+        </div>
+        <div id = "tweet" class="graph">
+            <p id="hometexttwitter" class="hometext">Most Tweeted Term</p>
+            <p id="hometexttwitterterm" class="hometext">coronavirus</p>
+        </div>
+    </div>
+    <!--TWITTER SEARCH BY TERM-->
     <div id="tterm" class="tabcontent">
         <input type="text" name="name" autocomplete="off" required id="searchTerm">
         <label for="name" class="label-name" >
@@ -61,13 +81,9 @@
         </label>
         <button id="byTermBtn" class="btn">SEARCH</button> 
     </div>
-
     <p id="byTermBtn-out" class="out"></p>
 
-
-
-
-
+    <!--TWITTER SEARCH BY DATE-->
     <div id="tdate" class="tabcontent">
         <input type="text" name="name" autocomplete="off" required id="searchDate">
         <label for="name" class="label-name" >
@@ -77,15 +93,110 @@
     </div>
     <p id="byDateBtn-out" class="out"></p>
 
+    <!--COVID SEARCH BY DATE-->
+    <div id="cdate" class="tabcontent">
+        <input type="text" name="name" autocomplete="off" required id="CsearchDate">
+        <label for="name" class="label-name" >
+            <span class="content-name">Enter a Date (yyyy-mm-dd):</span>
+        </label>
+        <button id="bycDateBtn" class="btn">SEARCH</button> 
+    </div>
+    <p id="bycDateBtn-out" class="out"></p>
+
+    <!--COVID SEARCH BY COUNTRY-->
+    <div id="ccountry" class="tabcontent">
+        <input type="text" name="name" autocomplete="off" required id="CsearchCountry">
+        <label for="name" class="label-name" >
+            <span class="content-name">Enter a Country:</span>
+        </label>
+        <button id="bycCountryBtn" class="btn">SEARCH</button> 
+    </div>
+    <p id="bycCountryBtn-out" class="out"></p>
+
+    <!--COVID SEARCH BY DATE AND COUNTRY-->
+    <div id="cdandc-1" class="tabcontent">
+        <input type="text" name="name" autocomplete="off" required id="CsearchDate2">
+        <label for="name" class="label-name" >
+            <span class="content-name">Enter a Date (yyyy-mm-dd):</span>
+        </label>  
+    </div>
+    <div id="cdandc-2" class="tabcontent">
+        <input type="text" name="name" autocomplete="off" required id="CsearchCountry2">
+        <label for="name" class="label-name" >
+            <span class="content-name">Enter a Country:</span>
+        </label>
+    </div>
+    <div id="cdandc-btn" class="tabcontent">
+        <button id="bycdandcBtn" class="btn">SEARCH</button>
+    </div>
+    <p id="bycdandcBtn-out" class="out"></p>
+
+    <!--COVID SEARCH WITHIN RANGE W/ FIELD-->
+    <div id="crange-1" class="tabcontent">
+        <input type="text" name="name" autocomplete="off" required id="CsearchRange1">
+        <label for="name" class="label-name" >
+            <span class="content-name">Enter a Date (yyyy-mm-dd):</span>
+        </label>  
+    </div>
+    <div id="crange-2" class="tabcontent">
+        <input type="text" name="name" autocomplete="off" required id="CsearchRange2">
+        <label for="name" class="label-name" >
+            <span class="content-name">Enter a Second Date (yyyy-mm-dd):</span>
+        </label>
+    </div>
+    <div id="crange-3" class="tabcontent">
+        <select name="name"autocomplete="off" required id="CsearchRange3">
+            <option value="Cases" id="CsearchRange3">Cases</option>
+            <option value="Deaths" id="CsearchRange3">Deaths</option>
+            <option value="Recoveries" id="CsearchRange3">Recoveries</option>
+        </select>
+    </div>
+    <div id="crange-btn" class="tabcontent">
+        <button id="byrangeBtn" class="btn">SEARCH</button>
+    </div>
+    <p id="byrangeBtn-out" class="out"></p>
 
 
 
 
 
+    <!--SCRIPT IMPORTS-->
     <script src="./js/main.js"></script>  
     <script src="./js/byTerm.js"></script>
     <script src="./js/byDate.js"></script>
     <script src="./js/button.js"></script>
+    <script src="./js/covidByDate.js"></script>
+    <script src="./js/covidByCountry.js"></script>
+    <script src="./js/covidDayandCountry.js"></script>
+    <script src="./js/covidRange.js"></script>
+    <script src="./js/covidAll.js"></script>
+    <script src="./js/ratio.js"></script>
+
+    <!--ENTER TO PRESS BUTTON SCRIPTS-->
+    <script>
+        var input = document.getElementById("searchTerm");
+        input.addEventListener("keyup", function(event) {if (event.keyCode === 13) {event.preventDefault();document.getElementById("byTermBtn").click();}});
+    </script>
+    <script>
+        var input = document.getElementById("searchDate");
+        input.addEventListener("keyup", function(event) {if (event.keyCode === 13) {event.preventDefault();document.getElementById("byDateBtn").click();}});
+    </script>
+    <script>
+        var input = document.getElementById("CsearchDate");
+        input.addEventListener("keyup", function(event) {if (event.keyCode === 13) {event.preventDefault();document.getElementById("bycDateBtn").click();}});
+    </script>
+    <script>
+        var input = document.getElementById("CsearchCountry");
+        input.addEventListener("keyup", function(event) {if (event.keyCode === 13) {event.preventDefault();document.getElementById("bycCountryBtn").click();}});
+    </script>
+    <script>
+        var input = document.getElementById("CsearchCountry2");
+        input.addEventListener("keyup", function(event) {if (event.keyCode === 13) {event.preventDefault();document.getElementById("cdandc-btn").click();}});
+    </script>
+    <script>
+        var input = document.getElementById("CsearchRange3");
+        input.addEventListener("keyup", function(event) {if (event.keyCode === 13) {event.preventDefault();document.getElementById("crange-btn").click();}});
+    </script>
     
       
 </body>
