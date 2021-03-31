@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"1fe0533e72b74700a2a0d52dcb5e6983","collectionName":"covidDaywise"}

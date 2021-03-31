@@ -18,7 +18,7 @@ class stats {
 	static async getCountByTerm(db,term) {
 		var term_get = term;
 		return new Promise(async function (resolve, reject){
-			let collection = await getCollection(db,"terms");
+			let collection = await getCollection(db,"twitterTerms");
 			collection.find({"term":term_get}).toArray((err, items)=>{ //searches collection for desired term
 				if (err) reject(err);
 				if(items.length > 0) {
@@ -35,7 +35,7 @@ class stats {
 	static async getTweetsByDay(db,day) {
 		var day_to_get = day;
 		return new Promise(async function (resolve, reject){
-			let collection = await getCollection(db,'twtFullClean');
+			let collection = await getCollection(db,'twitterAmounts');
 			collection.find({"date":day_to_get}).toArray((err, items)=>{
 				if (err) reject(err);
 				if(items.length > 0) {
@@ -52,7 +52,7 @@ class stats {
 	static async getByDay(db,day) {
 		var day_to_get = day;
 		return new Promise(async function (resolve, reject){
-			let collection = await getCollection(db,'c19DayWise');
+			let collection = await getCollection(db,'covidDaywise');
 			collection.find({"Date":day_to_get}).toArray((err, items)=>{
 				if (err) reject(err);
 				if(items.length > 0) {
@@ -70,7 +70,7 @@ class stats {
 		var day_to_get = day;
 		var field_to_get = field;
 		return new Promise(async function (resolve, reject){
-			let collection = await getCollection(db,'c19DayWise');
+			let collection = await getCollection(db,'covidDaywise');
 			collection.find({"Date":day_to_get}).toArray((err, items)=>{
 				if (err) reject(err);
 				/* Section to identify which field is being asked to generate the correct result */
@@ -96,7 +96,7 @@ class stats {
 	static async getCountry(db,country) {
         var country_to_get = country;
         return new Promise(async function (resolve, reject){
-			let collection = await getCollection(db,'c19Worldometer');
+			let collection = await getCollection(db,'covidCountry');
 			 collection.find({"Country/Region":country_to_get}).toArray((err, items)=>{
 				if (err) reject(err);
 				if(items.length > 0) {
@@ -114,7 +114,7 @@ class stats {
 		var day_to_get = day;
 		var country_to_get = country;
 		return new Promise(async function (resolve, reject){
-			let collection = await getCollection(db,'c19FullGrouped');
+			let collection = await getCollection(db,'covidFull');
 			collection.find({"Date":day_to_get,"Country/Region":country_to_get}).toArray((err, items)=>{
 				if (err) reject(err);
 				if(items.length > 0) {
@@ -135,7 +135,7 @@ class stats {
 		var total = 0;
 		var i;
 		return new Promise(async function (resolve, reject){
-			let collection = await getCollection(db,'c19DayWise');
+			let collection = await getCollection(db,'covidDaywise');
 			collection.find({"Date":{$gte: day_get, $lte: day_end }}).toArray((err, items)=>{
 				if (err) reject (err);
 				if(items.length > 0) {
@@ -175,7 +175,7 @@ class stats {
 		var i;
 		var total = 0;
 		return new Promise(async function (resolve, reject) {
-			let collection = await getCollection(db,'c19FullGrouped');
+			let collection = await getCollection(db,'covidFull');
 			collection.find({"Date":{$gte: day_get, $lte: day_end}, "Country/Region":country_to_get}).toArray((err, items)=>{
 				if (err) reject (err);
 				if (items.length > 0) {
@@ -216,8 +216,8 @@ class stats {
 		var totalRecoveries = 0;
 		var ratio = 0;
 		return new Promise(async function (resolve, reject){
-			let collection = await getCollection(db,'twtFullCleanINT'); //last minute adjustment to fix an error in the db
-			let collection2 = await getCollection(db,'c19DaywiseINT');
+			let collection = await getCollection(db,'twitterAmounts'); //last minute adjustment to fix an error in the db
+			let collection2 = await getCollection(db,'covidDaywise');
 			collection.find({}).toArray((err, items)=>{
 				if (err) reject(err);
 				if(items.length > 0) {
@@ -248,7 +248,7 @@ class stats {
 	};
 	static async getCovidWorld(db) { 
 		return new Promise(async function (resolve, reject){
-			let collection = await getCollection(db,'c19DaywiseINT');
+			let collection = await getCollection(db,'covidDaywise');
 			collection.find({}).toArray((err, items)=>{
 				if (err) reject(err);
 				resolve(items);

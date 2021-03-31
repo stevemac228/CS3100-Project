@@ -82,7 +82,7 @@ $(document).ready(function(){
                   responsive: true,
                   maintainAspectRatio: true,
                   title: {
-                    text: 'Covid Cases over Time (millions)',
+                    text: 'Covid Cases over Time (thousands)',
                     fontSize: 16,
                     fontStyle: '100',
                     fontColor: '#5fa8d3',

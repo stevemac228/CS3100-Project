@@ -9,6 +9,7 @@ $(document).ready(function(){
             type: 'GET',
             contentType: 'application/json',                        
             success: function(response){
+                
                 $("#byrangeBtn-out").css("display","flex");
                 $("#byrangeBtn-out").css("flex-direction","column");
                 $("#byrangeBtn-out").css("justify-content","space-around");
