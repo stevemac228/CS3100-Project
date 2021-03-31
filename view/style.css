@@ -58,12 +58,12 @@ canvas{
 }
 
 .hometext{
-  font-size:50px;
+  font-size:40px;
   color: whitesmoke;
 }
 
 #homepagenum{
-  font-size:50px;
+  font-size:40px;
   color:#5fa8d3;
   font-weight:bold;
 }
@@ -84,8 +84,6 @@ canvas{
   color:#5fa8d3;
   font-weight:bold;
 }
-
-
 
 nav ul{
   float:left;
@@ -108,7 +106,8 @@ nav ul li a {
 
 nav ul li a:hover {
   background-color: #777777;
-  transition: all 0.34s;
+  transform: translateY(2px);
+  transition: all 0.8s;
 }
 
 nav ul li button {
@@ -125,7 +124,13 @@ nav ul li button {
 
 nav ul li button:hover {
   background-color: #777777;
-  transition: all 0.3s;
+  transition: all 0.4s;
+}
+
+nav ul li button:active{
+  background-color: #777777;
+  transform: translateY(1px);
+  transition: all 0.4s;
 }
 
 nav ul li ul {
@@ -157,6 +162,7 @@ nav ul li ul li button:hover{
   display: block;
   padding: 10px 16px;
   background-color: #777777;
+  transition: all 0.4s;
 }
 
 .tabcontent{
@@ -254,12 +260,19 @@ nav ul li ul li button:hover{
   font-weight: bold;
   font-size: 16px;
   letter-spacing: 2px;
-  color: #5fa8d3
+  color: #5fa8d3;
 }
 
 .tabcontent button:hover{
-  color: #5598be;
-  border: 2px solid #5598be;
+  color: #5395bb;
+  border: 2px solid #5395bb;
+  transition: all 0.4s;
+}
+
+.tabcontent button:active{
+  background-color: #5395bb;
+  transform: translateY(2px);
+  transition: all 0.4s;
 }
 
 .out{
@@ -410,7 +423,6 @@ nav ul li ul li button:hover{
  box-shadow: none!important;
 }
 
-
 #info2{
   font-size: 90px;
   color: #5598be;
@@ -419,4 +431,3 @@ nav ul li ul li button:hover{
 #byrangeBtn-out{
   margin-top: 20px;
 }
-
