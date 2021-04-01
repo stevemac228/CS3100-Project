@@ -1,3 +1,4 @@
+/* Connects a button press to to another HTML id */
 $(document).ready(function(){
     function changeDivComponents(tab_element_clicked){
         $(".out").each(function(index){
