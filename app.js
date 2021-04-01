@@ -24,9 +24,8 @@ app.use("/", router)
 app.use(express.static(__dirname + '/view'))
 
 server = app.listen(port, () => {
-	console.log('Example app listening at http://localhost:%d', port);
+	console.log('Example app listening at localhost:%d',port);
 });
-
 process.on('SIGINT', () => {
 	console.info('SIGINT signal received.');
 	console.log('Closing Mongo Client.');

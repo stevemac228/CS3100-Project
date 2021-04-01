@@ -1,6 +1,6 @@
 const MongoClient = require("mongodb").MongoClient
-const url ="mongodb+srv://cs3100:catca@cluster0.7ltlt.mongodb.net/test";
-const client = new MongoClient(url, { useUnifiedTopology: true });
+const uri = "mongodb+srv://cs3100:catca@cluster0.7ltlt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 async function connectToDB() {
