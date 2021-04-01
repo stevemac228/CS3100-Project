@@ -1,3 +1,4 @@
+/* Gets the ratio of how many covid cases to tweets */
 $(document).ready(function(){
     $.ajax({
         url: '/ratio/Cases',
