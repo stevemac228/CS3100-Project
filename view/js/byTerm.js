@@ -1,3 +1,4 @@
+/* Responsible for getting the usage of a term on twitter */
 $(document).ready(function(){
     $("#byTermBtn").click(function(event){
         event.preventDefault();
