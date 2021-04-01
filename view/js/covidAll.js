@@ -1,3 +1,4 @@
+/* Responsible for getting all the data (we have) on covid */
 $(document).ready(function(){
     $.ajax({
         url: '/all',
