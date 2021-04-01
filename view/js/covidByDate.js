@@ -1,3 +1,4 @@
+/* Gets all covid statistics for a specific data  */
 $(document).ready(function(){
     $("#bycDateBtn").click(function(event){
         event.preventDefault();
