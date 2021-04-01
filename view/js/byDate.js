@@ -1,3 +1,4 @@
+/* Responsible for getting the amount of tweets on a specific day */
 $(document).ready(function(){
     $("#byDateBtn").click(function(event){
         event.preventDefault();
