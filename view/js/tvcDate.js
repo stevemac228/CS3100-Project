@@ -65,7 +65,7 @@ $(document).ready(function(){
                         $("#tvcdayBtn-out2").html('<span>There were <span id="num">' + Math.floor(this.countNum).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span> cases on <span id="term">'+ date + '</span>.</span>');
                     },
                     complete: function () {
-                        $("#tvcdayBtn-out2").html('<span>There were <span id="num">' + Math.floor(this.countNum).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span> sases on <span id="term">'+ date + '</span>.</span>');
+                        $("#tvcdayBtn-out2").html('<span>There were <span id="num">' + Math.floor(this.countNum).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span> cases on <span id="term">'+ date + '</span>.</span>');
                     }
                     });
                 }; 
