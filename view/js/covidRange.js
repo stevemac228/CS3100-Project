@@ -1,9 +1,10 @@
+/* Gets info on a specific covid field over a range of time */
 $(document).ready(function(){
     $("#byrangeBtn").click(function(event){
         event.preventDefault();
-        let date1 = $("#CsearchRange1").val();
-        let date2 = $("#CsearchRange2").val();
-        let field = $("#CsearchRange3").val();
+        let date1 = $("#CsearchRange1").val(); //first day in the range
+        let date2 = $("#CsearchRange2").val(); //last day in the range
+        let field = $("#CsearchRange3").val(); //specified field 
         $.ajax({
             url: '/date/'+ date1 + '/' + date2 + '/'+ field,
             type: 'GET',
