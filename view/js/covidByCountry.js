@@ -1,7 +1,8 @@
+/* Gets covid cases for a specific country */
 $(document).ready(function(){
     $("#bycCountryBtn").click(function(event){
         event.preventDefault();
-        let country = $("#CsearchCountry").val();
+        let country = $("#CsearchCountry").val(); //only valid if spelt with proper capitalization ei "Canada" not "canada" 
         $.ajax({
             url: '/country/'+country,
             type: 'GET',
