@@ -1,3 +1,4 @@
+/* Gets the covid stats of a specific country on a specific date */
 $(document).ready(function(){
     $("#bycdandcBtn").click(function(event){
         event.preventDefault();
