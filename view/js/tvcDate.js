@@ -1,3 +1,6 @@
+/* Resposnisble for comparing tweets and covid cases on a sepcfic date*/
+
+/* gets the tweets for the date */
 $(document).ready(function(){
     $("#tvcdayBtn").click(function(event){
         event.preventDefault();
@@ -37,6 +40,7 @@ $(document).ready(function(){
             }
         });
     });
+    /* gets the covid cases for the date */
     $("#tvcdayBtn").click(function(event){
         event.preventDefault();
         let date = $("#TvCdaysearch").val();
