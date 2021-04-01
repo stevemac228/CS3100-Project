@@ -12,6 +12,12 @@ $(document).ready(function(){
                 $("#bycdandcBtn-out").css("flex-direction","column");
                 $("#bycdandcBtn-out").css("justify-content","space-around");
                 $("#bycdandcBtn-out").css("align-items","center");
+                if(typeof response == 'string'){
+                    if (date.includes('-',2) == false) {
+                        $("#bycdandcBtn-out").text(date  + " is not a valid date.");
+                    }
+                    else{$("#bycdandcBtn-out").text(response);}
+                }else{
                 $("#bycdandcBtn-out").html('<span id="fadein">Active: <span id="info">'+ response[0].Active.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></span>' + 
                                           '<span id="fadein">Cases: <span id="info">'+ response[0].Confirmed.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></span>' + 
                                           '<span id="fadein">Recovered: <span id="info">'+ response[0].Recovered.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></span>' + 
@@ -19,7 +25,8 @@ $(document).ready(function(){
                                           '<span id="fadein">New cases: <span id="info">'+ response[0].New_cases.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></span>' + 
                                           '<span id="fadein">New recoveries: <span id="info">'+ response[0].New_recovered.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +'</span></span>' +
                                           '<span id="fadein">New deaths: <span id="info">'+ response[0].New_deaths.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></span>'
-                                          );   
+                                          ); 
+                }  
             },                   
             error: function(xhr, status, error){
                 var errorMessage = xhr.status + ': ' + xhr.statusText

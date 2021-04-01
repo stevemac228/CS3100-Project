@@ -13,17 +13,16 @@ $(document).ready(function(){
                 $("#byrangeBtn-out").css("flex-direction","column");
                 $("#byrangeBtn-out").css("justify-content","space-around");
                 $("#byrangeBtn-out").css("align-items","center");
-                $({ countNum: $('#byrangeBtn-out').html() }).animate({countNum: response}, {
-                    duration: 2000,
-                    easing: 'linear',
-                    step: function () {
-                    $("#byrangeBtn-out").html('There have been <span id="info2">' + Math.floor(this.countNum).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>'+ field + ' from <span>'+ date1 + ' to ' + date2 + '</span>');
-                },
-                complete: function () {
-                    $("#byrangeBtn-out").html('There have been <span id="info2">' + this.countNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>'+ field + ' from <span>'+ date1 + ' to ' + date2 + '</span>');
-                }
-                });
-                  
+                    $({ countNum: $('#byrangeBtn-out').html() }).animate({countNum: response}, {
+                        duration: 2000,
+                        easing: 'linear',
+                        step: function () {
+                        $("#byrangeBtn-out").html('There have been <span id="info2">' + Math.floor(this.countNum).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>'+ field + ' from <span>'+ date1 + ' to ' + date2 + '</span>');
+                    },
+                    complete: function () {
+                        $("#byrangeBtn-out").html('There have been <span id="info2">' + this.countNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span>'+ field + ' from <span>'+ date1 + ' to ' + date2 + '</span>');
+                    }
+                    });
                 },                   
             error: function(xhr, status, error){
                 var errorMessage = xhr.status + ': ' + xhr.statusText

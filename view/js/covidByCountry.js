@@ -11,6 +11,10 @@ $(document).ready(function(){
                 $("#bycCountryBtn-out").css("flex-direction","column");
                 $("#bycCountryBtn-out").css("justify-content","space-around");
                 $("#bycCountryBtn-out").css("align-items","center");
+                if(typeof response == 'string'){
+                    $("#bycCountryBtn-out").text(country + " is not a valid country.");
+                }
+                else{
                 $("#bycCountryBtn-out").html('<span id="fadein">Active: <span id="info">'+ response[0].ActiveCases.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></span>' + 
                                           '<span id="fadein">Cases: <span id="info">'+ response[0].TotalCases.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></span>' + 
                                           '<span id="fadein">Recovered: <span id="info">'+ response[0].TotalRecovered.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></span>' + 
@@ -21,6 +25,7 @@ $(document).ready(function(){
                                           '<span id="fadein">Total Deaths/1M pop: <span id="info">'+ response[0].Deaths_1M_pop.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></span>' + 
                                           '<span id="fadein">Tests /1M pop: <span id="info">'+ response[0].Tests_1M_pop.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</span></span>'
                                           );   
+                }
             },                   
             error: function(xhr, status, error){
                 var errorMessage = xhr.status + ': ' + xhr.statusText

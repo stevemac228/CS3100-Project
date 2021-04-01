@@ -7,6 +7,7 @@ $(document).ready(function(){
             var Dates = response.map(function(d){return d.Date});
             var Cases = response.map(function(d){return d.Confirmed / 1000000});
             var Deaths = response.map(function(d){return d.Deaths / 1000});
+            var Recoveries = response.map(function(d){return d.Recovered / 1000});
             var totalCases = response.map(function(d){return d.Confirmed});
             var totalDeaths = response.map(function(d){return d.Deaths});
             var totalRecovered = response.map(function(d){return d.Recovered});
@@ -23,7 +24,7 @@ $(document).ready(function(){
                   datasets: [{
                     backgroundColor: '#FFFFFF',
                     borderColor: '#FFFFFF',
-                    data:Cases,
+                    data: Cases,
                     fill: false,
                     pointRadius:0,
                   }]
@@ -82,7 +83,7 @@ $(document).ready(function(){
                   responsive: true,
                   maintainAspectRatio: true,
                   title: {
-                    text: 'Covid Cases over Time (thousands)',
+                    text: 'Covid Deaths over Time (thousands)',
                     fontSize: 16,
                     fontStyle: '100',
                     fontColor: '#5fa8d3',
@@ -115,6 +116,56 @@ $(document).ready(function(){
                     }]
                   }
                 }
+            });
+            let chart3 = new Chart(myChart3,{
+              type: 'line',
+              data: {
+                labels: Dates,
+                datasets: [{
+                  backgroundColor: '#FFFFFF',
+                  borderColor: '#FFFFFF',
+                  data:Recoveries,
+                  fill: false,
+                  pointRadius:0,
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                title: {
+                  text: 'Covid Recoveries over Time (thousands)',
+                  fontSize: 16,
+                  fontStyle: '100',
+                  fontColor: '#5fa8d3',
+                  padding: 10,
+                  display: true
+                },
+                legend: {
+                  display: false
+                },
+                scales: {
+                  yAxes: [{
+                    gridLines: {
+                      display: true,
+                      color:'rgba(255,255,255,0.4)',
+                      zeroLineWidth: 2,
+                    },
+                    ticks: {
+                      fontColor: "white",
+                  }
+                  }],
+                  xAxes: [{
+                    gridLines: {
+                      display: false,
+                      color:'rgba(255,255,255,0.4)',
+                      zeroLineWidth: 2,
+                    },
+                    ticks: {
+                      fontColor: "white",
+                  }
+                  }]
+                }
+              }
             });
             $({ countNum: $('#hometextcases').html() }).animate({countNum: totalCases}, {
                 duration: 2000,
@@ -152,4 +203,30 @@ $(document).ready(function(){
             alert('Error - ' + errorMessage);
         }
     });
+    $.ajax({
+      url: '/twitter',
+      type: 'GET',
+      contentType: 'application/json',                        
+      success: function(response){
+        var sum = 0;
+        for(x in response){
+          sum +=response[x].tweetAmount;
+        }
+        $({ countNum: $('#hometexttwitternum').html() }).animate({countNum: sum
+        }, {
+            duration: 2000,
+            easing: 'linear',
+            step: function () {
+            $("#hometexttwitternum").html(Math.floor(this.countNum).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        },
+        complete: function () {
+            $("#hometexttwitternum").html(Math.floor(this.countNum).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+        }); 
+      },                   
+      error: function(xhr, status, error){
+          var errorMessage = xhr.status + ': ' + xhr.statusText
+          alert('Error - ' + errorMessage);
+      }
+  });
 });

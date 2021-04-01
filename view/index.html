@@ -66,20 +66,32 @@
         <div class="break"></div>
         <div class="graph">
             <canvas id="myChart"></canvas>
+            <p id="hometextcases" class="hometext"></p>
         </div>
         <div class="graph">
             <canvas id="myChart2"></canvas>
-        </div>
-        <div class="break"></div>
-        <div class="graph">
-            <p id="hometextcases" class="hometext"></p>
             <p id="hometextdeaths" class="hometext"></p>
+        </div>
+        <div class="graph">
+            <canvas id="myChart3"></canvas>
             <p id="hometextrecovered" class="hometext"></p>
         </div>
-        <div id = "tweet" class="graph">
-            <p id="hometexttwitter" class="hometext">Most Tweeted Term</p>
-            <p id="hometexttwitterterm" class="hometext">coronavirus</p>
+        <div class="break"></div>
+        <div id = "tweet1" class="graph">
+            <p id="hometexttwitter" class="hometext">Day with most Tweets</p>
+            <p id="hometexttwitterterm" class="hometext">2020-03-22</p>
         </div>
+        <div id = "tweet2" class="graph">
+            <p id="hometexttwitter" class="hometext">Most Tweeted Terms</p>
+            <p id="hometexttwitterterm" class="hometext">coronavirus</p>
+            <p id="hometexttwitterterm2" class="hometext">covid</p>
+            <p id="hometexttwitterterm3" class="hometext">covid19</p>
+        </div>
+        <div id = "tweet3" class="graph">
+            <p id="hometexttwitter" class="hometext">Total Tweets</p>
+            <p id="hometexttwitternum" class="hometext">2,342,345</p>
+        </div>
+        <div class="break"></div>
     </div>
     <!--TWITTER SEARCH BY TERM-->
     <div id="tterm" class="tabcontent">
@@ -163,6 +175,25 @@
         <button id="byrangeBtn" class="btn">SEARCH</button>
     </div>
     <p id="byrangeBtn-out" class="out"></p>
+    
+         
+
+    <!--Tweets vs Cases Compare By Day--> 
+    <div id="tvcday" class="tabcontent"> 
+        <input type="text" name="name" autocomplete="off" required id="TvCdaysearch">
+        <label for="name" class="label-name" >
+            <span class="content-name">Enter a Date (yyyy-mm-dd):</span>
+        </label> 
+        <button id="tvcdayBtn" class="btn">SEARCH</button>
+    </div>
+    <p id="tvcdayBtn-out" class="out"></p>
+    <p id="tvcdayBtn-out2" class="out"></p>
+
+
+    <div id="footer" class="graph2">
+        <pre>Steven MacDonald  Matthew Keough  Rebecca Legge</pre>
+        <p>All twitter information is from 2020-01-01 -> 2020-03-22. All covid information is from 2020-01-22 -> 2020-07-27</p>
+    </div>
 
     <!--SCRIPT IMPORTS-->
     <script src="./js/main.js"></script>  
@@ -175,6 +206,7 @@
     <script src="./js/covidRange.js"></script>
     <script src="./js/covidAll.js"></script>
     <script src="./js/ratio.js"></script>
+    <script src="./js/tvcDate.js"></script>
 
     <!--ENTER TO PRESS BUTTON SCRIPTS-->
     <script>
